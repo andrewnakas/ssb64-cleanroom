@@ -43,6 +43,7 @@ def main():
     ap.add_argument("--sheet", action="store_true")
     ap.add_argument("--keys", default="", help="t:key:dur,... real key events via CDP (Enter, d, s, a, ArrowLeft, ...)")
     ap.add_argument("--gpu", action="store_true", help="use the real GPU instead of SwiftShader")
+    ap.add_argument("--nolimit", action="store_true", help="disable vsync / frame-rate limit")
     ap.add_argument("--profile", default="", help="t0:t1 CPU profile window (seconds); prints top functions")
     a = ap.parse_args()
     os.makedirs(a.out, exist_ok=True)
@@ -54,6 +55,8 @@ def main():
             "--no-first-run", "--autoplay-policy=no-user-gesture-required", "--window-size=900,760",
             "--remote-allow-origins=*", "--disable-background-timer-throttling",
             "--disable-renderer-backgrounding", "--disable-backgrounding-occluded-windows"]
+    if a.nolimit:
+        args += ["--disable-gpu-vsync", "--disable-frame-rate-limit"]
     if not a.gpu:
         args += ["--enable-unsafe-swiftshader", "--use-angle=swiftshader", "--ignore-gpu-blocklist"]
     p = subprocess.Popen(args + ["about:blank"], stdout=subprocess.DEVNULL, stderr=subprocess.DEVNULL)

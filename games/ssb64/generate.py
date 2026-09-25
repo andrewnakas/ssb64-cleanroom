@@ -119,25 +119,59 @@ def to_index(img, pal):
 def generate_bytes(textures, palettes, hook=None):
     """{(fid, off): bytes} for every texture and palette range."""
     out = {}
-    by_pal = {}
-    for t in textures:
-        if t["fmt"] == "CI" and t.get("pal"):
-            by_pal.setdefault((t["pal"][0], t["pal"][1]), []).append(t)
     imgs = {}
     for t in textures:
         imgs[(t["fid"], t["off"])] = base_image(t, hook)
-    # palettes: quantize all textures that use them together
+    # Palette groups. Which TLUT a model texture uses at runtime is often set elsewhere (material
+    # palettes, costume swaps), so model/material CI textures and every palette of their file that no
+    # sprite claims share ONE palette per (file, CI4|CI8) group: whichever TLUT the game loads, the
+    # colours are right. Sprites keep their exact LUT pointer.
     pal_count = {(p["fid"], p["off"]): p["nbytes"] // 2 for p in palettes}
+    parent = {}
+
+    def find(x):
+        parent.setdefault(x, x)
+        while parent[x] != x:
+            parent[x] = parent[parent[x]]
+            x = parent[x]
+        return x
+
+    def union(a, b):
+        parent[find(a)] = find(b)
+
+    sprite_pals = {(t["pal"][0], t["pal"][1]) for t in textures if t["fmt"] == "CI" and t.get("pal") and t["src"] == "sprite"}
+    members = {}
+    for t in textures:
+        if t["fmt"] != "CI" or t["siz"] not in (4, 8):
+            continue
+        tk = ("T", t["fid"], t["off"])
+        if t["src"] == "sprite" and t.get("pal"):
+            union(tk, ("P", t["pal"][0], t["pal"][1]))
+        else:
+            union(tk, ("F", t["fid"], t["siz"]))
+            if t.get("pal"):
+                union(tk, ("P", t["pal"][0], t["pal"][1]))
+    for (pf, po), n in pal_count.items():
+        if (pf, po) not in sprite_pals:
+            union(("P", pf, po), ("F", pf, 4 if n <= 16 else 8))
+    for t in textures:
+        if t["fmt"] == "CI" and t["siz"] in (4, 8):
+            members.setdefault(find(("T", t["fid"], t["off"])), {"t": [], "p": []})["t"].append(t)
+    for key in pal_count:
+        root = find(("P",) + key)
+        if root in members:
+            members[root]["p"].append(key)
     made_pal = {}
-    for key, ts in by_pal.items():
-        count = pal_count.get(key, 16 if ts[0]["siz"] == 4 else 256)
-        k = min(count, 16 if ts[0]["siz"] == 4 else 256)
-        allpx = np.concatenate([imgs[(t["fid"], t["off"])].reshape(-1, 4) for t in ts])
-        pal = quantize(allpx, k, seed=h32(*key))
-        full = np.zeros((count, 4), np.uint8)
-        full[:k] = pal
-        made_pal[key] = pal
-        out[key] = pal_bytes(full)
+    for root, g in members.items():
+        k = 16 if any(t["siz"] == 4 for t in g["t"]) else 256
+        allpx = np.concatenate([imgs[(t["fid"], t["off"])].reshape(-1, 4) for t in g["t"]])
+        pal = quantize(allpx, k, seed=h32(*root))
+        for t in g["t"]:
+            made_pal[(t["fid"], t["off"])] = pal
+        for key in g["p"]:
+            full = np.zeros((pal_count[key], 4), np.uint8)
+            full[:min(k, pal_count[key])] = pal[:pal_count[key]]
+            out[key] = pal_bytes(full)
     for key, n in pal_count.items():
         if key not in out:   # palette nobody links to: neutral ramp
             ramp = np.linspace(0, 255, n)
@@ -149,7 +183,7 @@ def generate_bytes(textures, palettes, hook=None):
         if (fmt, siz) not in DECODABLE:
             b = bytes([0x80]) * t["nbytes"]
         elif fmt == 2:
-            pal = made_pal.get((t["pal"][0], t["pal"][1])) if t.get("pal") else None
+            pal = made_pal.get(key)
             if pal is not None:
                 idx = to_index(img, pal)
             else:   # no palette known: index ramp from luminance
@@ -271,7 +305,7 @@ def main():
     for off, b in pickle.load(open(ap_, "rb")).items():
         newrom[off:off + len(b)] = b
     from . import particles
-    for off, b in particles.build().items():
+    for off, b in ({} if os.environ.get("SSB_SKIP_PARTICLES") else particles.build()).items():
         newrom[off:off + len(b)] = b
     seed = pack.set_crc(newrom, rom)
     os.makedirs(a.out, exist_ok=True)

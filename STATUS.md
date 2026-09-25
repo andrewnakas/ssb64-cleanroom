@@ -39,8 +39,12 @@
   still wrong for some fighters) for CSS portraits / results / stock icons.
 - Some fighters render dark/noisy in game: CI palette links for material textures are heuristic;
   fix by recording the TLUT actually loaded in each DL walk (in progress).
-- Title screen / some intro scenes are slow in *headless* Edge (retail too); please check speed in a
-  real browser.
+- Speed: in headless Edge the title screen and some intro scenes crawl (2-17 fps) for the RETAIL ROM
+  too (N64Wasm's default GLideN64 path on that full-screen effect; not SRAM, not particles, not our
+  textures - all tested). `?rice=1` (Rice renderer) was usually faster. Please check a real browser;
+  if the title is slow there too, I'll make Rice the default or skip-to-menu faster.
+- CI palettes: model/material textures now share one palette per (file, CI4/CI8) group so whichever
+  TLUT the game loads the colours are right; costume colour variants collapse to one set for now.
 - Fighter voices (grunts) are resynthesised noise-like placeholders; only announcer lines are TTS.
 
 ## For the morning

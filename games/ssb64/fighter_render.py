@@ -173,11 +173,12 @@ def walk_dl(R, dl, W, tris, depth=0):
                 tp = R.ptr(mf, mo + 4)
                 frame = R.ptr(tp[0], tp[1]) if tp else None
                 if frame:
-                    st["timg"] = frame
                     st["loaded"] = frame
+                    st["timg"] = frame
                 pp = R.ptr(mf, mo + 0x2C)
                 pal = R.ptr(pp[0], pp[1]) if pp else None
                 if pal:
+                    st["timg"] = pal           # the material DL ends with the palette image (LOADTLUT follows)
                     st["tlut"] = pal
             walk_dl(R, p, W, tris, depth + 1)
             if (w0 >> 16) & 0xFF == 1:
