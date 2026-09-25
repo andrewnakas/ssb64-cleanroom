@@ -131,13 +131,18 @@ def generate_bytes(textures, palettes, hook=None):
     for (sf, so), parts in sprites.sprite_groups(textures).items():
         ys, W, H = sprites.layout(parts)
         base = sprites.compose(parts, [imgs[(t["fid"], t["off"])] for t in parts])
-        img = art.sprite_hook(f"{sf}:{so:x}", W, H, base)
         sg = SPRITE_GRIDS.get(f"{sf}:{so:x}")
-        if img is None and sg and sg["w"] == W and sg["h"] == H:
-            img = upsample_grid(sg["grid"], 16, W, H)
+        whole = None
+        if sg and sg["w"] == W and sg["h"] == H:
+            whole = upsample_grid(sg["grid"], 16, W, H)
             bay = np.array([[0, 8, 2, 10], [12, 4, 14, 6], [3, 11, 1, 9], [15, 7, 13, 5]], np.float32) / 16.0 - 0.47
-            img[..., :3] += 3.0 * np.tile(bay, (H // 4 + 1, W // 4 + 1))[:H, :W, None]
-            img = np.clip(img, 0, 255)
+            whole[..., :3] += 3.0 * np.tile(bay, (H // 4 + 1, W // 4 + 1))[:H, :W, None]
+            whole = np.clip(whole, 0, 255)
+            whole[..., 3] = base[..., 3]
+            base = whole.copy()
+        img = art.sprite_hook(f"{sf}:{so:x}", W, H, base)
+        if img is None and whole is not None:
+            img = whole
             img[..., 3] = -1                    # strips keep their own alpha outline
         if img is not None:
             for t, piece in zip(parts, sprites.split(img, parts)):

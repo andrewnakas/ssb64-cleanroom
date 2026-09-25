@@ -51,6 +51,9 @@
 
 - Big dark menu icons (Index/Data/Option/VS) use the drawn briefs; 1P stage-clear labels re-typeset.
 
+- Congratulation pictures (12 fighters, 300x220 in two halves): our portrait bust painted large over
+  the smooth 16x16 grid background.
+
 ## Known issues / next
 - IA icons whose detail is in the intensity (mode-select controller/console icons) are plain discs:
   need briefs.

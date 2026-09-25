@@ -153,6 +153,31 @@ def retype(text, w, h, ink=(250, 235, 120), edge=(30, 20, 10)):
     return img
 
 
+CONGRA = {170: "kirby", 172: "yoshi", 174: "pikachu", 176: "samus", 178: "link", 180: "purin", 182: "captain",
+          184: "donkey", 186: "mario", 188: "luigi", 190: "fox", 192: "ness"}
+
+
+def congra(fid, base):
+    """Congratulations picture half (300x110): our portrait bust, large, over the smooth grid background."""
+    who = CONGRA[fid & ~1]
+    brief = next(v for v in portraits().values() if v["who"] == who)
+    top = fid & 1
+    W, H = base.shape[1], base.shape[0]
+    bw, bh = 190, 200
+    b1 = dict(brief, base=[0, 0, 0])
+    b2 = dict(brief, base=[255, 0, 255])
+    i1, i2 = facepaint.render(b1, bw, bh), facepaint.render(b2, bw, bh)
+    painted = (np.abs(i1[..., :3] - i2[..., :3]).sum(-1) < 1).astype(np.float32)
+    full = np.zeros((2 * H, W, 4), np.float32)
+    full[(0 if top else H):(H if top else 2 * H)] = base
+    oy, ox = 2 * H - bh, (W - bw) // 2
+    reg = full[oy:oy + bh, ox:ox + bw]
+    reg[..., :3] = reg[..., :3] * (1 - painted[..., None]) + i1[..., :3] * painted[..., None]
+    out = full[:H] if top else full[H:]
+    out[..., 3] = 255
+    return out
+
+
 def results_floor(w, h, base):
     """Results backdrop: soft cloudy sky over a perspective checkerboard floor (our own drawing;
     brightness range from the kept grid)."""
@@ -235,6 +260,8 @@ def sprite_hook(key, w, h, base=None):
         return player_tag(TAGS[key], w, h)
     if key in LABELS:
         return retype(LABELS[key], w, h)
+    if key.endswith(":20718") and 170 <= int(key.split(":")[0]) <= 193 and base is not None:
+        return congra(int(key.split(":")[0]), base)
     if key == "34:d5c8" and base is not None:
         return results_floor(w, h, base)
     if key == "34:e2a0" and base is not None:
