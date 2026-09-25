@@ -49,6 +49,8 @@
 
 - Results screen: drawn cloud sky + perspective checkerboard floor, 1P-4P tags, winner "1" badge.
 
+- Big dark menu icons (Index/Data/Option/VS) use the drawn briefs; 1P stage-clear labels re-typeset.
+
 ## Known issues / next
 - IA icons whose detail is in the intensity (mode-select controller/console icons) are plain discs:
   need briefs.

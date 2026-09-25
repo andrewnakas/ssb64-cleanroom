@@ -135,6 +135,24 @@ TAGS = {"38:258": "1P", "38:4f8": "2P", "38:798": "3P", "38:a38": "4P", "38:cd8"
         "34:49e8": "1P", "34:4b08": "2P", "34:4c28": "3P", "34:4d48": "4P"}
 
 
+LABELS = {"80:25e8": "Timer", "80:2b48": "Damage", "80:b4f8": "Target"}
+
+
+def retype(text, w, h, ink=(250, 235, 120), edge=(30, 20, 10)):
+    th = max(5, h - 2)
+    line = glyphs._fit_line(text, w - 2, th)
+    m = np.zeros((h, w), np.float32)
+    m[1:1 + th, 1:1 + line.shape[1]] = np.clip(line[:h - 1] * 1.6, 0, 1)
+    ring = m.copy()
+    for dy in (-1, 0, 1):
+        for dx in (-1, 0, 1):
+            ring = np.maximum(ring, np.roll(np.roll(m, dy, 0), dx, 1))
+    img = np.zeros((h, w, 4), np.float32)
+    img[..., :3] = np.where(m[..., None] > 0.5, np.array(ink, np.float32), np.array(edge, np.float32))
+    img[..., 3] = ring * 255
+    return img
+
+
 def results_floor(w, h, base):
     """Results backdrop: soft cloudy sky over a perspective checkerboard floor (our own drawing;
     brightness range from the kept grid)."""
@@ -215,6 +233,8 @@ def sprite_hook(key, w, h, base=None):
         return rim_fill(RIMS[key], base)
     if key in TAGS:
         return player_tag(TAGS[key], w, h)
+    if key in LABELS:
+        return retype(LABELS[key], w, h)
     if key == "34:d5c8" and base is not None:
         return results_floor(w, h, base)
     if key == "34:e2a0" and base is not None:
