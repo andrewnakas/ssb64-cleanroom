@@ -53,7 +53,12 @@ def base_image(t, hook=None):
         img[..., 3] = np.where(a >= 128, 255, np.where(a > 0, a, 0))
         if t.get("fmt") == "I":
             # I textures: alpha == intensity on the RDP, so the kept outline is the image itself
-            img[..., :3] = img[..., 3:4]
+            v = np.select([a >= 250, a >= 160, a >= 80], [255.0, 150.0, 100.0], 0.0)
+            clear = a < 80
+            rim = ~clear & (np.roll(clear, 1, 0) | np.roll(clear, -1, 0) | np.roll(clear, 1, 1) | np.roll(clear, -1, 1))
+            v = np.where(rim, v * 0.8, v)       # our own rim shading (not the retail anti-aliasing)
+            img[..., :3] = v[..., None]
+            img[..., 3] = v
         elif t.get("fmt") == "IA" and g is not None:
             # IA lettering/icons: light interior, darker rim (edge distance from the outline), in the
             # grid's own light..dark range
