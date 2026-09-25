@@ -26,6 +26,10 @@ SPEC = os.path.join(HERE, "spec")
 OVR = os.path.join(HERE, "overrides")
 FMTN = {"RGBA": 0, "YUV": 1, "CI": 2, "IA": 3, "I": 4}
 SIZN = {4: 0, 8: 1, 16: 2, 32: 3}
+try:
+    SPRITE_GRIDS = json.load(open(os.path.join(SPEC, "sprites.json")))
+except FileNotFoundError:
+    SPRITE_GRIDS = {}
 DETAIL = float(os.environ.get("SSB_DETAIL", "0.0"))   # texel noise hurts vpk0: relocData must fit its slot
 DECODABLE = {(0, 2), (0, 3), (3, 2), (3, 1), (3, 0), (4, 1), (4, 0), (2, 0), (2, 1)}
 
@@ -128,6 +132,13 @@ def generate_bytes(textures, palettes, hook=None):
         ys, W, H = sprites.layout(parts)
         base = sprites.compose(parts, [imgs[(t["fid"], t["off"])] for t in parts])
         img = art.sprite_hook(f"{sf}:{so:x}", W, H, base)
+        sg = SPRITE_GRIDS.get(f"{sf}:{so:x}")
+        if img is None and sg and sg["w"] == W and sg["h"] == H:
+            img = upsample_grid(sg["grid"], 16, W, H)
+            bay = np.array([[0, 8, 2, 10], [12, 4, 14, 6], [3, 11, 1, 9], [15, 7, 13, 5]], np.float32) / 16.0 - 0.47
+            img[..., :3] += 3.0 * np.tile(bay, (H // 4 + 1, W // 4 + 1))[:H, :W, None]
+            img = np.clip(img, 0, 255)
+            img[..., 3] = -1                    # strips keep their own alpha outline
         if img is not None:
             for t, piece in zip(parts, sprites.split(img, parts)):
                 full = np.zeros((t["h"], t["w"], 4), np.float32)

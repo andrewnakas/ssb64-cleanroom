@@ -39,6 +39,9 @@
 - Title logo re-typeset (SMASH / SUPER / BROS. in our stroke font inside the kept silhouettes);
   mode-select icons drawn from our own line briefs (`icon_briefs.json`).
 
+- Big multi-strip sprites (stage wallpapers, backgrounds, pictures >= 128 px) use one 16x16 grid for
+  the whole picture (spec/sprites.json) instead of a grid per 6-row strip: no more banding/stripes.
+
 ## Known issues / next
 - IA icons whose detail is in the intensity (mode-select controller/console icons) are plain discs:
   need briefs.

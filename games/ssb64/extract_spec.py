@@ -310,6 +310,20 @@ def main():
             imgs.append((t, img))
         facts.append(f)
     json.dump(facts, open(os.path.join(SPEC, "textures.json"), "w"))
+    # whole-sprite colour grids for multi-strip sprites (strip grids band big pictures)
+    from . import sprites as _spr
+    img_of = {(t["fid"], t["off"]): im for t, im in imgs}
+    sfacts = {}
+    for (sf, so), parts in _spr.sprite_groups([f for f in facts if f.get("sprite")]).items():
+        if len(parts) < 2 or any((p["fid"], p["off"]) not in img_of for p in parts):
+            continue
+        whole = _spr.compose(parts, [img_of[(p["fid"], p["off"])].astype(np.float32) for p in parts])
+        H, W = whole.shape[:2]
+        if max(W, H) < 128:
+            continue
+        sfacts[f"{sf}:{so:x}"] = {"w": W, "h": H, "grid": grid(whole.astype(np.float64), 16)}
+    json.dump(sfacts, open(os.path.join(SPEC, "sprites.json"), "w"))
+    print(f"whole-sprite grids: {len(sfacts)}")
     json.dump([{k: p[k] for k in ("fid", "off", "nbytes", "src")} for p in sorted(pal, key=lambda p: (p["fid"], p["off"]))],
               open(os.path.join(SPEC, "palettes.json"), "w"))
     print(f"textures {len(facts)} (undecodable {bad}), palettes {len(pal)}, "
