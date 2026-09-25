@@ -10,6 +10,7 @@ taint.py checks that none of the retail pixel bytes survive.
 import argparse
 import json
 import os
+import pickle
 import struct
 from concurrent.futures import ThreadPoolExecutor
 
@@ -18,13 +19,14 @@ import numpy as np
 from cleanroom.decomp.gen import detail, h32, unpack_alpha2, upsample_grid
 from cleanroom.gfx import texfmt
 
-from . import reloc
+from . import reloc, texscan
 
 HERE = os.path.dirname(os.path.abspath(__file__))
 SPEC = os.path.join(HERE, "spec")
 OVR = os.path.join(HERE, "overrides")
 FMTN = {"RGBA": 0, "YUV": 1, "CI": 2, "IA": 3, "I": 4}
 SIZN = {4: 0, 8: 1, 16: 2, 32: 3}
+DETAIL = float(os.environ.get("SSB_DETAIL", "0.0"))   # texel noise hurts vpk0: relocData must fit its slot
 DECODABLE = {(0, 2), (0, 3), (3, 2), (3, 1), (3, 0), (4, 1), (4, 0), (2, 0), (2, 1)}
 
 
@@ -41,7 +43,11 @@ def base_image(t, hook=None):
     else:
         n = int(round(len(g) ** 0.5))
         img = upsample_grid(g, n, w, h)
-        img[..., :3] *= detail(h32("ssb64", t["fid"], t["off"]), w, h)[..., None]
+        # faint 4x4 ordered dither: keeps smooth grid gradients from matching retail gradients byte for byte
+        bay = np.array([[0, 8, 2, 10], [12, 4, 14, 6], [3, 11, 1, 9], [15, 7, 13, 5]], np.float32) / 16.0 - 0.47
+        img[..., :3] += 3.0 * np.tile(bay, (h // 4 + 1, w // 4 + 1))[:h, :w, None]
+        if DETAIL:
+            img[..., :3] *= detail(h32("ssb64", t["fid"], t["off"]), w, h, amount=DETAIL)[..., None]
     if t.get("alpha2"):
         a = unpack_alpha2(t["alpha2"], w, h)
         img[..., 3] = np.where(a >= 128, 255, np.where(a > 0, a, 0))
@@ -133,6 +139,8 @@ def generate_bytes(textures, palettes, hook=None):
             b = texfmt.encode(np.stack([idx] * 4, -1), 2, siz)
         else:
             b = texfmt.encode(img.astype(np.uint8), fmt, siz)
+        if t["src"] == "sprite":
+            b = texscan.swizzle(b, t["w"], t["siz"])
         b = b[:t["nbytes"]] + bytes(max(0, t["nbytes"] - len(b)))
         out[key] = b
     return out
@@ -219,7 +227,6 @@ def main():
         n = len(reloc.chain(bytes(files_data[len(tails)]), e["extern"])) if e["extern"] != 0xFFFF else 0
         tails.append(e["blob"][e["stored"] * 4:e["stored"] * 4 + 2 * n])
     from . import art
-    import pickle
     rp = os.path.join(a.out, "ranges.pkl")
     if a.keep and os.path.exists(rp):
         ranges = pickle.load(open(rp, "rb"))
@@ -238,6 +245,15 @@ def main():
         table = [dict(e, vpk0=False) for e in table]
     region = pack_region(table, files_data, tails, lambda d, cfg: compress_cached(cache, d, cfg))
     newrom = pack.build(rom, region)
+    ap_ = os.path.join(a.out, "audio.pkl")
+    from . import audio
+    if not os.path.exists(ap_) or os.path.getmtime(ap_) < os.path.getmtime(audio.SPEC):
+        pickle.dump(audio.build(rom), open(ap_, "wb"))
+    for off, b in pickle.load(open(ap_, "rb")).items():
+        newrom[off:off + len(b)] = b
+    from . import particles
+    for off, b in particles.build().items():
+        newrom[off:off + len(b)] = b
     seed = pack.set_crc(newrom, rom)
     os.makedirs(a.out, exist_ok=True)
     open(os.path.join(a.out, "ssb64_clean.z64"), "wb").write(newrom)

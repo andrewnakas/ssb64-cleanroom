@@ -225,13 +225,37 @@ def scan_sprites(F, offs, out):
                             sprite=(F.fid, s), bm=k))
 
 
+def find_sprites(F):
+    """Sprite structs by layout: Bitmap* at +0x34 is a chain pointer, sane size/format fields, and each
+    Bitmap's buf (+8) is a chain pointer too."""
+    d = F.data
+    found = []
+    for p in F.ptr:
+        s = p - 0x34
+        if s < 0 or s % 4 or s + 0x44 > len(d):
+            continue
+        w, h = s16(d, s + 4), s16(d, s + 6)
+        fmt, siz, nbm = d[s + 0x30], d[s + 0x31], s16(d, s + 0x28)
+        if not (0 < w <= 1024 and 0 < h <= 1024 and fmt <= 4 and siz <= 4 and 0 < nbm <= 512):
+            continue
+        sx = struct.unpack_from(">f", d, s + 8)[0]
+        if not (0.001 < abs(sx) < 1000):
+            continue
+        bf, bm = F.ptr[p]
+        if bf != F.fid or bm + 16 * nbm > len(d):
+            continue
+        if all((bm + 16 * k + 8) in F.ptr for k in range(nbm)):
+            found.append(s)
+    return found
+
+
 def scan_all(files, desc_path):
     out = []
     spr = sprite_offsets(desc_path)
     for F in files:
         scan_dl(F, out)
         scan_mobj(F, out)
-        scan_sprites(F, spr.get(F.fid, []), out)
+        scan_sprites(F, sorted(set(spr.get(F.fid, [])) | set(find_sprites(F))), out)
     # pixel data never holds pointer slots: clip each range at the first one inside it
     import bisect
     slots = {F.fid: set(F.ptr) for F in files}
@@ -248,3 +272,19 @@ def scan_all(files, desc_path):
             o["nbytes"] = ps[j] - o["off"]
         o["nbytes"] = max(0, min(o["nbytes"], len(files[o["fid"]].data) - o["off"]))
     return out
+
+
+def swizzle(raw, w, bits):
+    """TMEM odd-row swizzle used by sprite bitmaps (loaded with LoadBlock, dxt=0): in every odd row,
+    swap the 32-bit halves of each 64-bit word (16-bit and smaller texels) or the 64-bit halves of each
+    128-bit pair (32-bit texels). Its own inverse."""
+    unit = 8 if bits == 32 else 4
+    row = w * bits // 8
+    if row <= 0:
+        return raw
+    b = bytearray(raw)
+    for y in range(1, len(b) // row, 2):
+        base = y * row
+        for k in range(base, base + row - 2 * unit + 1, 2 * unit):
+            b[k:k + unit], b[k + unit:k + 2 * unit] = b[k + unit:k + 2 * unit], b[k:k + unit]
+    return bytes(b)

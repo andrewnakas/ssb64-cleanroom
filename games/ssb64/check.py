@@ -13,7 +13,7 @@ import sys
 from PIL import Image, ImageDraw
 
 ROOT = "C:/Users/andre/n64work/ssb64/shots"
-SITES = {"retail": "http://localhost:8091/index.html", "clean": "http://localhost:8092/index.html"}
+SITES = {"retail": "http://localhost:8091/index.html?rice=1", "clean": "http://localhost:8092/index.html?rice=1"}
 FLOWS = {
     # title -> mode select -> 1P game -> character select
     "css1p": ("16,24,34,40", "12:Enter:0.3,20:Enter:0.3,24:Enter:0.3,30:Enter:0.3"),

@@ -9,6 +9,7 @@ Writes:
   games/ssb64/spec/palettes.json     per palette: fid, off, count (colours are NOT kept)
 """
 import argparse
+import re
 import json
 import os
 import struct
@@ -128,12 +129,136 @@ def resolve(hits):
     return tex, pal
 
 
+DECL_RE = re.compile(r'(u8|u16|u32)\s+d\w*?_(Tex|Lut|LUT|Image|Palette)_0x([0-9A-Fa-f]+)\w*\[(0x[0-9A-Fa-f]+|\d+)\]\s*=')
+ANN_RE = re.compile(r'@tex fmt=(\w+?)(\d+)? dim=(\d+)x(\d+)(?: lut=\w*?_(?:Lut|LUT)_0x([0-9A-Fa-f]+))?')
+FMT_TOK = {"CI": "CI", "I": "I", "IA": "IA", "RGBA": "RGBA"}
+
+
+def decl_blocks(src_dir):
+    """Texture/LUT blocks the decomp declares in src/relocData/*.c, with their @tex annotations."""
+    out = []
+    for f in sorted(os.listdir(src_dir)):
+        if not f.endswith(".c") or not f.split("_")[0].isdigit():
+            continue
+        fid = int(f.split("_")[0])
+        lines = open(os.path.join(src_dir, f), encoding="utf-8", errors="replace").read().splitlines()
+        for i, l in enumerate(lines):
+            m = DECL_RE.search(l)
+            if not m:
+                continue
+            size = int(m.group(4), 0) * {"u8": 1, "u16": 2, "u32": 4}[m.group(1)]
+            ann = ANN_RE.search(" ".join(lines[max(0, i - 3):i]))
+            out.append(dict(fid=fid, off=int(m.group(3), 16), size=size, kind=m.group(2).lower(), ann=ann.groups() if ann else None))
+    return out
+
+
+def add_decl_fallback(tex, pal, src_dir):
+    """Decomp-declared blocks my structural scan missed become ranges too (format from @tex)."""
+    import bisect
+    cov = {}
+    for r in tex + pal:
+        cov.setdefault(r["fid"], []).append((r["off"], r["off"] + r["nbytes"]))
+    for k in cov:
+        cov[k].sort()
+    common = {}
+    for t in tex:
+        common.setdefault(t["fid"], {}).setdefault((t["fmt"], t["siz"]), 0)
+        common[t["fid"]][(t["fmt"], t["siz"])] += 1
+    added = 0
+    for b in decl_blocks(src_dir):
+        rs = cov.get(b["fid"], [])
+        lo, hi = b["off"], b["off"] + b["size"]
+        covered = sum(max(0, min(hi, e) - max(lo, s)) for s, e in rs)
+        if b["size"] - covered < 16:
+            continue            # already covered
+        # uncovered gaps inside the block (structural ranges keep their exact facts)
+        gaps, cur = [], lo
+        for s, e in rs:
+            if e <= cur or s >= hi:
+                continue
+            if s > cur:
+                gaps.append((cur, s))
+            cur = max(cur, e)
+        if cur < hi:
+            gaps.append((cur, hi))
+        gaps = [(s, e) for s, e in gaps if e - s >= 16]
+        if b["kind"] in ("lut", "palette"):
+            for s, e in gaps:
+                pal.append(dict(fid=b["fid"], off=s, nbytes=e - s, kind="pal", src="decl", fmt="RGBA", siz=16,
+                                w=(e - s) // 2, h=1, at=[b["fid"], s]))
+                added += 1
+            continue
+        if covered:
+            (fmt, bits) = max(common.get(b["fid"], {("CI", 4): 1}).items(), key=lambda kv: kv[1])[0]
+            if b["ann"]:
+                fmt = FMT_TOK.get(b["ann"][0], "I")
+                bits = int(b["ann"][1] or (16 if fmt in ("RGBA", "IA") else 8))
+            for s, e in gaps:
+                w = max(1, min(32, (e - s) * 8 // bits))
+                tex.append(dict(fid=b["fid"], off=s, nbytes=e - s, kind="tex", src="decl", fmt=fmt, siz=bits, w=w,
+                                h=max(1, (e - s) * 8 // (bits * w)), at=[b["fid"], s], pal=None))
+                added += 1
+            continue
+        if b["ann"]:
+            f, bits, w, h, lut = b["ann"]
+            fmt = FMT_TOK.get(f, "I")
+            bits = int(bits or (16 if fmt in ("RGBA", "IA") else 8))
+            w, h = int(w), int(h)
+        else:
+            (fmt, bits) = max(common.get(b["fid"], {("CI", 4): 1}).items(), key=lambda kv: kv[1])[0]
+            w, lut = 32, None
+            h = max(1, b["size"] * 8 // (bits * w))
+        n = b["size"] - (b["size"] % max(1, w * bits // 8))   # whole rows over the whole block
+        n = n or b["size"]
+        t = dict(fid=b["fid"], off=b["off"], nbytes=n, kind="tex", src="decl", fmt=fmt, siz=bits, w=w,
+                 h=max(1, n * 8 // (bits * w)), at=[b["fid"], b["off"]], pal=None)
+        if fmt == "CI" and lut:
+            t["pal"] = [b["fid"], int(lut, 16), 16 if bits == 4 else 256]
+        tex.append(t)
+        added += 1
+    return added
+
+
+def link_by_smoothness(files, tex, pal):
+    """CI textures whose palette comes from a TLUT loaded elsewhere (MObj materials): pick, among the
+    same file's palettes of the right size, the one that decodes the texture most smoothly."""
+    by_file = {}
+    for p in pal:
+        by_file.setdefault(p["fid"], []).append(p)
+    n = 0
+    for t in tex:
+        if t["fmt"] != "CI" or t.get("pal") or t["siz"] not in (4, 8):
+            continue
+        need = 16 if t["siz"] == 4 else 256
+        cands = [p for p in by_file.get(t["fid"], []) if p["nbytes"] // 2 >= need]
+        if not cands:
+            continue
+        d = files[t["fid"]].data
+        raw = d[t["off"]:t["off"] + t["nbytes"]]
+        raw = raw + bytes(max(0, t["w"] * t["h"] * t["siz"] // 8 - len(raw)))
+        idx = texfmt.decode(raw, t["w"], t["h"], 2, SIZN[t["siz"]],
+                            np.stack([np.arange(256)] * 4, -1).astype(np.uint8))[..., 0].astype(np.int64)
+        best = None
+        for p in cands:
+            pr = pal_rgba(files[p["fid"]].data, p["off"], need).astype(np.float64)
+            img = pr[np.clip(idx, 0, need - 1)][..., :3]
+            tv = np.abs(np.diff(img, axis=0)).mean() + np.abs(np.diff(img, axis=1)).mean()
+            if best is None or tv < best[0]:
+                best = (tv, p)
+        t["pal"] = [best[1]["fid"], best[1]["off"], need]
+        t["pal_guess"] = True
+        n += 1
+    return n
+
+
 def image_of(files, t):
     d = files[t["fid"]].data
     raw = d[t["off"]:t["off"] + t["nbytes"]]
     w, h = t["w"], t["h"]
     need = w * h * t["siz"] // 8
     raw = raw + bytes(max(0, need - len(raw)))
+    if t["src"] == "sprite":
+        raw = texscan.swizzle(raw, w, t["siz"])
     fmt, siz = FMTN[t["fmt"]], SIZN[t["siz"]]
     palette = None
     if fmt == 2:
@@ -157,6 +282,9 @@ def main():
     ents, files = load_files(rom, a.work)
     hits = texscan.scan_all(files, DESC)
     tex, pal = resolve(hits)
+    n_decl = add_decl_fallback(tex, pal, "C:/Users/andre/n64work/ssb64/pristine/src/relocData")
+    print(f"decl fallback: {n_decl} blocks the structural scan missed")
+    print(f"palette links by smoothness: {link_by_smoothness(files, tex, pal)}")
     os.makedirs(SPEC, exist_ok=True)
     from concurrent.futures import ThreadPoolExecutor
     with ThreadPoolExecutor(16) as ex:

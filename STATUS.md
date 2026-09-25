@@ -23,13 +23,21 @@
 - Dev harness note: N64Wasm speed in headless Edge is erratic for retail too (some intro scenes at
   1-2 fps); tests skip the intro (Start during the logo) and compare retail vs clean in the same run.
 
-## Works
-- Dev harness: `ports/emu/make_site.py` (N64Wasm + `?rom=`, `?keys=` hooks), `ports/emu/shot.py` (CDP screenshots).
-- `games/ssb64/reloc.py` (table, vpk0 via vpk0cmd built from source, pointer chains), `pack.py`.
+## Works (2026-09-25 ~05:00)
+- Clean ROM (16 MB, relocData re-packed in place, no code patches) boots, menus and character
+  select work, attract demos play at 60 fps (tutorial match, 4-player Dream Land, stage fly-bys).
+- Every texture/sprite/palette (4,540 + 724, found structurally + decomp declarations), 246 particle
+  frames and 439 samples regenerated. Taint: 0 failing over 6,007 ranges.
+- Site: N64Wasm + clean ROM, keyboard + gamepad. Published to andrewnakas/ssb64-cleanroom (gh-pages).
 
-## Next
-- Texture/palette/sprite census of the 2132 reloc files + particle banks; sound bank samples.
-- Generate clean assets, build clean ROM, taint scan, publish.
+## Known issues / next
+- Text is blurry (4x4 grids): menus, names, HUD need re-typesetting (priority 2).
+- Portraits/icons/faces are colour grids: need briefs/renders (priority 3).
+- Some fighters/posters partly dark: CI palette linking is heuristic for material textures.
+- A few stage textures striped (Congo Jungle) - format of a few DL loads.
+- N64Wasm in headless Edge is sometimes very slow in some scenes (retail too) - check in a real browser.
+- Voices/announcer: placeholder pass + practice pack not done yet.
 
 ## For the morning
-- (pending)
+- Open the site in a real browser (desktop GPU), play 1P/VS: tell me what looks worst.
+- Voice practice pack: not built yet (see next steps).

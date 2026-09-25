@@ -43,6 +43,7 @@ def main():
     ap.add_argument("--sheet", action="store_true")
     ap.add_argument("--keys", default="", help="t:key:dur,... real key events via CDP (Enter, d, s, a, ArrowLeft, ...)")
     ap.add_argument("--gpu", action="store_true", help="use the real GPU instead of SwiftShader")
+    ap.add_argument("--profile", default="", help="t0:t1 CPU profile window (seconds); prints top functions")
     a = ap.parse_args()
     os.makedirs(a.out, exist_ok=True)
     exe = next(b for b in BROWSERS if os.path.exists(b))
@@ -117,6 +118,25 @@ def main():
                 except Exception:
                     pass
 
+        if a.profile:
+            p0, p1 = (float(x) for x in a.profile.split(":"))
+            pump(p0)
+            ws.settimeout(60)
+            send("Profiler.enable")
+            send("Profiler.start")
+            pump(p1)
+            ws.settimeout(120)
+            prof = send("Profiler.stop")["profile"]
+            self_t = {}
+            dt = prof.get("timeDeltas", [])
+            byid = {n["id"]: n for n in prof["nodes"]}
+            for sid, d in zip(prof.get("samples", []), dt):
+                cf = byid[sid]["callFrame"]
+                k = cf["functionName"] or cf["url"][-30:] or "(anon)"
+                self_t[k] = self_t.get(k, 0) + d
+            tot = sum(self_t.values()) or 1
+            for k, v in sorted(self_t.items(), key=lambda kv: -kv[1])[:25]:
+                console.append(f"PROF {100 * v / tot:5.1f}% {k}")
         for s in sorted(float(x) for x in a.secs.split(",")):
             pump(s)
             ws.settimeout(60)
