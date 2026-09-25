@@ -44,6 +44,9 @@
 
 - Announcer letters (GO!, GAME SET, ...) painted chrome from their own silhouettes; fighter names crisp.
 
+- HUD: player tags (1P/2P/3P/4P/CP with pointer) re-typeset; GO! (fire) / TIME UP / GAME SET
+  (blue metal) letters painted from their silhouettes.
+
 ## Known issues / next
 - IA icons whose detail is in the intensity (mode-select controller/console icons) are plain discs:
   need briefs.

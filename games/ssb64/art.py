@@ -131,12 +131,43 @@ def hook(t):
     return None
 
 
+TAGS = {"38:258": "1P", "38:4f8": "2P", "38:798": "3P", "38:a38": "4P", "38:cd8": "CP"}
+HUD_LETTERS = {"82:" + k for k in ("4d78", "a730", "c370", "e4a8", "f740", "127e0", "144e0", "16eb8", "18fe8",
+                                    "1b6f8", "1de68", "20788")}   # G O ! T I M E U P S A G
+FIRE = {"layers": [[1, [60, 10, 0]]], "fill": [[255, 230, 90], [215, 50, 10]]}
+BLUE = {"layers": [[1, [10, 15, 50]]], "fill": [[200, 225, 255], [30, 70, 200]]}
+
+
+def player_tag(text, w, h):
+    """'1P' above a down-pointing triangle, white with a dark edge (the game tints it per player)."""
+    th = max(5, int(h * 0.62))
+    line = glyphs._fit_line(text, w - 1, th)
+    m = np.zeros((h, w), np.float32)
+    m[:th, :line.shape[1]] = np.clip(line * 1.6, 0, 1)
+    ys, xs = np.mgrid[0:h, 0:w].astype(np.float32)
+    cx, top = (w - 1) / 2, th + 0.5
+    tri = (ys >= top) & (np.abs(xs - cx) <= (h - 1 - ys) * 0.9) & (ys <= h - 1)
+    m = np.maximum(m, tri.astype(np.float32))
+    ring = m.copy()
+    for dy in (-1, 0, 1):
+        for dx in (-1, 0, 1):
+            ring = np.maximum(ring, np.roll(np.roll(m, dy, 0), dx, 1))
+    img = np.zeros((h, w, 4), np.float32)
+    img[..., :3] = np.where(m[..., None] > 0.5, 250.0, 30.0)
+    img[..., 3] = np.clip(ring, 0, 1) * 255
+    return img
+
+
 CHROME = {"layers": [[1, [20, 20, 30]]], "fill": [[250, 250, 255], [120, 125, 140]]}
 
 
 def sprite_hook(key, w, h, base=None):
     if key in RIMS and base is not None:
         return rim_fill(RIMS[key], base)
+    if key in TAGS:
+        return player_tag(TAGS[key], w, h)
+    if key in HUD_LETTERS and base is not None:
+        return rim_fill(FIRE if key in ("82:4d78", "82:a730", "82:c370") else BLUE, base)
     if key.startswith("37:") and base is not None:      # announcer letters (GO!, GAME SET...)
         img = rim_fill(CHROME, base)
         H = img.shape[0]
