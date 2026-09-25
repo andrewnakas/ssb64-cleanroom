@@ -131,7 +131,56 @@ def hook(t):
     return None
 
 
-TAGS = {"38:258": "1P", "38:4f8": "2P", "38:798": "3P", "38:a38": "4P", "38:cd8": "CP"}
+TAGS = {"38:258": "1P", "38:4f8": "2P", "38:798": "3P", "38:a38": "4P", "38:cd8": "CP",
+        "34:49e8": "1P", "34:4b08": "2P", "34:4c28": "3P", "34:4d48": "4P"}
+
+
+def results_floor(w, h, base):
+    """Results backdrop: soft cloudy sky over a perspective checkerboard floor (our own drawing;
+    brightness range from the kept grid)."""
+    lum = base[..., :3].mean(-1)
+    lo, hi = float(np.percentile(lum, 5)), float(np.percentile(lum, 95))
+    ys, xs = np.mgrid[0:h, 0:w].astype(np.float32)
+    horizon = h * 0.62
+    rng = np.random.default_rng(7)
+    sky = np.zeros((h, w), np.float32)
+    for k, amp in ((6, 0.5), (12, 0.3), (24, 0.2)):
+        g = rng.random((k + 1, k + 1)).astype(np.float32)
+        yi, xi = ys / h * k, xs / w * k
+        y0, x0 = yi.astype(int), xi.astype(int)
+        fy, fx = yi - y0, xi - x0
+        fy, fx = fy * fy * (3 - 2 * fy), fx * fx * (3 - 2 * fx)
+        v = (g[y0, x0] * (1 - fx) + g[y0, x0 + 1] * fx) * (1 - fy) + (g[y0 + 1, x0] * (1 - fx) + g[y0 + 1, x0 + 1] * fx) * fy
+        sky += amp * v
+    sky = np.clip((sky - 0.35) * 2.0, 0, 1)
+    val = lo + (hi - lo) * (0.55 + 0.45 * sky)
+    fl = ys > horizon
+    z = 1.0 / np.maximum(ys - horizon, 1.0) * h * 0.25
+    u = (xs - w / 2) / w * z * 6
+    chk = ((np.floor(u) + np.floor(z * 2.0)) % 2 == 0)
+    val = np.where(fl, np.where(chk, hi, lo + (hi - lo) * 0.2), val)
+    img = np.zeros((h, w, 4), np.float32)
+    img[..., :3] = val[..., None]
+    img[..., 3] = 255
+    return img
+
+
+def badge_one(base):
+    img = base.copy()
+    H, W = img.shape[:2]
+    th = int(H * 0.55)
+    line = glyphs._fit_line("1", max(4, th // 2 + 2), th)
+    m = np.zeros((H, W), np.float32)
+    oy, ox = int(H * 0.12), (W - line.shape[1]) // 2
+    m[oy:oy + th, ox:ox + line.shape[1]] = np.clip(line * 1.6, 0, 1)
+    ring = m.copy()
+    for dy in (-1, 0, 1):
+        for dx in (-1, 0, 1):
+            ring = np.maximum(ring, np.roll(np.roll(m, dy, 0), dx, 1))
+    img[..., :3] = img[..., :3] * (1 - ring[..., None]) + np.array([40, 30, 0]) * ring[..., None]
+    img[..., :3] = img[..., :3] * (1 - m[..., None]) + np.array([255, 225, 40]) * m[..., None]
+    img[..., 3] = np.maximum(img[..., 3], ring * 255)
+    return img
 HUD_LETTERS = {"82:" + k for k in ("4d78", "a730", "c370", "e4a8", "f740", "127e0", "144e0", "16eb8", "18fe8",
                                     "1b6f8", "1de68", "20788")}   # G O ! T I M E U P S A G
 FIRE = {"layers": [[1, [60, 10, 0]]], "fill": [[255, 230, 90], [215, 50, 10]]}
@@ -166,6 +215,10 @@ def sprite_hook(key, w, h, base=None):
         return rim_fill(RIMS[key], base)
     if key in TAGS:
         return player_tag(TAGS[key], w, h)
+    if key == "34:d5c8" and base is not None:
+        return results_floor(w, h, base)
+    if key == "34:e2a0" and base is not None:
+        return badge_one(base)
     if key in HUD_LETTERS and base is not None:
         return rim_fill(FIRE if key in ("82:4d78", "82:a730", "82:c370") else BLUE, base)
     if key.startswith("37:") and base is not None:      # announcer letters (GO!, GAME SET...)

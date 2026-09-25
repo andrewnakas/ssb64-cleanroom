@@ -47,6 +47,8 @@
 - HUD: player tags (1P/2P/3P/4P/CP with pointer) re-typeset; GO! (fire) / TIME UP / GAME SET
   (blue metal) letters painted from their silhouettes.
 
+- Results screen: drawn cloud sky + perspective checkerboard floor, 1P-4P tags, winner "1" badge.
+
 ## Known issues / next
 - IA icons whose detail is in the intensity (mode-select controller/console icons) are plain discs:
   need briefs.
