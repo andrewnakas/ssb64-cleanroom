@@ -131,6 +131,8 @@ def generate_bytes(textures, palettes, hook=None):
             for t, piece in zip(parts, sprites.split(img, parts)):
                 full = np.zeros((t["h"], t["w"], 4), np.float32)
                 full[:piece.shape[0], :piece.shape[1]] = piece
+                if (full[..., 3] < 0).any():            # art keeps the strip's own outline
+                    full[..., 3] = imgs[(t["fid"], t["off"])][..., 3]
                 imgs[(t["fid"], t["off"])] = full
     # Palette groups. Which TLUT a model texture uses at runtime is often set elsewhere (material
     # palettes, costume swaps), so model/material CI textures and every palette of their file that no

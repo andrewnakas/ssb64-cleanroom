@@ -37,11 +37,39 @@ def name_plate(img, text, h=7):
     return img
 
 
+_ICONS = None
+STYLES = {"light": {"bg": [225, 225, 225], "line": [25, 25, 25], "fill": [225, 225, 225]},
+          "dark": {"bg": [120, 120, 120], "line": [20, 20, 20], "fill": [120, 120, 120]}}
+
+
+def icons():
+    global _ICONS
+    if _ICONS is None:
+        raw = json.load(open(os.path.join(HERE, "icon_briefs.json")))
+        _ICONS = {}
+        for k, v in raw.items():
+            if k.startswith("_") or "use" not in v:
+                continue
+            st = STYLES[v.get("style", "light")]
+            ops = []
+            for op in raw[v["use"]]["ops"]:
+                op = dict(op)
+                op["c"] = st[op["c"]] if isinstance(op.get("c"), str) else op.get("c")
+                ops.append(op)
+            _ICONS[k] = {"base": st["bg"], "ops": ops, "keep_alpha": True}
+    return _ICONS
+
+
 def hook(t):
     return None
 
 
 def sprite_hook(key, w, h):
+    ic = icons().get(key)
+    if ic is not None:
+        img = facepaint.render(ic, w, h)
+        img[..., 3] = -1                   # keep the kept alpha outline of each strip
+        return img
     b = portraits().get(key)
     if b is None:
         return None
