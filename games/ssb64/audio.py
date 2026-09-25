@@ -89,6 +89,8 @@ def _make(args):
     name, wt, w = args
     nsamp = w["len"] // 9 * 16
     ovr = os.path.join(OVR, name, f"{wt}.wav")
+    if not os.path.exists(ovr) and name == "sounds2":
+        ovr = os.path.join(HERE, "voices", f"{wt}.wav")     # announcer lines: TTS placeholder or user takes
     if os.path.exists(ovr):
         import scipy.io.wavfile as wavfile
         sr, x = wavfile.read(ovr)

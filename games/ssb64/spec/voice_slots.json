@@ -1,0 +1,2990 @@
+{
+"nSYAudioVoiceMBallDogasAppear": {
+"id": 309,
+"sounds": [
+159
+],
+"waves": [
+31784
+]
+},
+"nSYAudioVoiceMBallIwarkAppear": {
+"id": 310,
+"sounds": [
+160
+],
+"waves": [
+31952
+]
+},
+"nSYAudioVoiceMBallKabigonFall": {
+"id": 311,
+"sounds": [
+161
+],
+"waves": [
+32120
+]
+},
+"nSYAudioVoiceMBallKabigonAppear": {
+"id": 312,
+"sounds": [
+162
+],
+"waves": [
+32288
+]
+},
+"nSYAudioVoiceMBallKamexAppear": {
+"id": 313,
+"sounds": [
+163
+],
+"waves": [
+32456
+]
+},
+"nSYAudioVoiceMBallLuckyAppear": {
+"id": 314,
+"sounds": [
+164
+],
+"waves": [
+32624
+]
+},
+"nSYAudioVoiceMBallMewAppear": {
+"id": 315,
+"sounds": [
+165
+],
+"waves": [
+32792
+]
+},
+"nSYAudioVoiceMBallPippiAppear": {
+"id": 316,
+"sounds": [
+166
+],
+"waves": [
+32960
+]
+},
+"nSYAudioVoiceMBallLizardonAppear": {
+"id": 317,
+"sounds": [
+167
+],
+"waves": [
+33128
+]
+},
+"nSYAudioVoiceMBallSawamuraAppear": {
+"id": 318,
+"sounds": [
+168
+],
+"waves": [
+33296
+]
+},
+"nSYAudioVoiceMBallSawamuraKick": {
+"id": 319,
+"sounds": [
+169
+],
+"waves": [
+33464
+]
+},
+"nSYAudioVoiceMBallSpearAppear": {
+"id": 320,
+"sounds": [
+170
+],
+"waves": [
+33680
+]
+},
+"nSYAudioVoiceMBallSpearSwarm": {
+"id": 321,
+"sounds": [
+170
+],
+"waves": [
+33680
+]
+},
+"nSYAudioVoiceMBallStarmieAppear": {
+"id": 322,
+"sounds": [
+171
+],
+"waves": [
+33848
+]
+},
+"nSYAudioVoiceMBallTosakintoAppear": {
+"id": 323,
+"sounds": [
+172
+],
+"waves": [
+34016
+]
+},
+"nSYAudioVoiceDonkeyFuraSleep": {
+"id": 324,
+"sounds": [
+48
+],
+"waves": [
+12944
+]
+},
+"nSYAudioVoiceDonkeyAppeal": {
+"id": 325,
+"sounds": [
+76
+],
+"waves": [
+17792
+]
+},
+"nSYAudioVoiceDonkeySmash1": {
+"id": 326,
+"sounds": [
+77
+],
+"waves": [
+17960
+]
+},
+"nSYAudioVoiceDonkeySmash2": {
+"id": 327,
+"sounds": [
+78
+],
+"waves": [
+18128
+]
+},
+"nSYAudioVoiceDonkeySmash3": {
+"id": 328,
+"sounds": [
+78
+],
+"waves": [
+18128
+]
+},
+"nSYAudioVoiceDonkeySpecialN": {
+"id": 329,
+"sounds": [
+76
+],
+"waves": [
+17792
+]
+},
+"nSYAudioVoiceDonkeyDeadUp": {
+"id": 330,
+"sounds": [
+79
+],
+"waves": [
+18296
+]
+},
+"nSYAudioVoiceDonkeyFuraFura": {
+"id": 331,
+"sounds": [
+80
+],
+"waves": [
+18512
+]
+},
+"nSYAudioVoiceDonkeyDamage": {
+"id": 332,
+"sounds": [
+76
+],
+"waves": [
+17792
+]
+},
+"nSYAudioVoiceDonkeyDead1": {
+"id": 333,
+"sounds": [
+81
+],
+"waves": [
+18680
+]
+},
+"nSYAudioVoiceDonkeyHeavyGet": {
+"id": 334,
+"sounds": [
+82
+],
+"waves": [
+18848
+]
+},
+"nSYAudioVoiceDonkeyHeavyUnk": {
+"id": 335,
+"sounds": [
+82
+],
+"waves": [
+18848
+]
+},
+"nSYAudioVoiceDonkeyDead2": {
+"id": 336,
+"sounds": [
+81
+],
+"waves": [
+18680
+]
+},
+"nSYAudioVoiceCaptainAppeal": {
+"id": 337,
+"sounds": [
+94
+],
+"waves": [
+20864
+]
+},
+"nSYAudioVoiceCaptainSpecialHi": {
+"id": 338,
+"sounds": [
+95
+],
+"waves": [
+21032
+]
+},
+"nSYAudioVoiceCaptainSmash1": {
+"id": 339,
+"sounds": [
+86
+],
+"waves": [
+19520
+]
+},
+"nSYAudioVoiceCaptainSmash2": {
+"id": 340,
+"sounds": [
+87
+],
+"waves": [
+19688
+]
+},
+"nSYAudioVoiceCaptainSmash3": {
+"id": 341,
+"sounds": [
+88
+],
+"waves": [
+19856
+]
+},
+"nSYAudioVoiceCaptainSmash4": {
+"id": 342,
+"sounds": [
+99
+],
+"waves": [
+21704
+]
+},
+"nSYAudioVoiceCaptainFinalComeOn": {
+"id": 343,
+"sounds": [
+101
+],
+"waves": [
+22040
+]
+},
+"nSYAudioVoiceCaptainSmash5": {
+"id": 344,
+"sounds": [
+99
+],
+"waves": [
+21704
+]
+},
+"nSYAudioVoiceCaptainAttackS4": {
+"id": 345,
+"sounds": [
+93
+],
+"waves": [
+20696
+]
+},
+"nSYAudioVoiceCaptainSpecialLw": {
+"id": 346,
+"sounds": [
+92
+],
+"waves": [
+20528
+]
+},
+"nSYAudioVoiceCaptainSpecialNPunch": {
+"id": 347,
+"sounds": [
+91
+],
+"waves": [
+20360
+]
+},
+"nSYAudioVoiceCaptainSpecialNFalcon": {
+"id": 348,
+"sounds": [
+90
+],
+"waves": [
+20192
+]
+},
+"nSYAudioVoiceCaptainDeadUp": {
+"id": 349,
+"sounds": [
+98
+],
+"waves": [
+21536
+]
+},
+"nSYAudioVoiceCaptainFuraFura": {
+"id": 350,
+"sounds": [
+96
+],
+"waves": [
+21200
+]
+},
+"nSYAudioVoiceCaptainDamage": {
+"id": 351,
+"sounds": [
+84
+],
+"waves": [
+19184
+]
+},
+"nSYAudioVoiceCaptainUnkPing1": {
+"id": 352,
+"sounds": [
+10
+],
+"waves": [
+5936
+]
+},
+"nSYAudioVoiceCaptainJumpAerial": {
+"id": 353,
+"sounds": [
+83
+],
+"waves": [
+19016
+]
+},
+"nSYAudioVoiceCaptainHeavyGet": {
+"id": 354,
+"sounds": [
+97
+],
+"waves": [
+21368
+]
+},
+"nSYAudioVoiceCaptainDead": {
+"id": 355,
+"sounds": [
+85
+],
+"waves": [
+19352
+]
+},
+"nSYAudioVoiceCaptainFuraSleep": {
+"id": 356,
+"sounds": [
+100
+],
+"waves": [
+21872
+]
+},
+"nSYAudioVoiceCaptainUnkQuick": {
+"id": 357,
+"sounds": [
+89
+],
+"waves": [
+20024
+]
+},
+"nSYAudioVoiceCaptainUnkPing2": {
+"id": 358,
+"sounds": [
+10
+],
+"waves": [
+5936
+]
+},
+"nSYAudioVoiceCaptainUnkPing3": {
+"id": 359,
+"sounds": [
+10
+],
+"waves": [
+5936
+]
+},
+"nSYAudioVoiceFoxDeadUp": {
+"id": 360,
+"sounds": [
+114
+],
+"waves": [
+24224
+]
+},
+"nSYAudioVoiceFoxAppeal": {
+"id": 361,
+"sounds": [
+110
+],
+"waves": [
+23552
+]
+},
+"nSYAudioVoiceFoxSpecialHi": {
+"id": 362,
+"sounds": [
+109
+],
+"waves": [
+23384
+]
+},
+"nSYAudioVoiceFoxJumpAerial": {
+"id": 363,
+"sounds": [
+108
+],
+"waves": [
+23216
+]
+},
+"nSYAudioVoiceFoxEscape": {
+"id": 364,
+"sounds": [
+102
+],
+"waves": [
+22208
+]
+},
+"nSYAudioVoiceFoxSelected": {
+"id": 365,
+"sounds": [
+110
+],
+"waves": [
+23552
+]
+},
+"nSYAudioVoiceFoxFinalIke": {
+"id": 366,
+"sounds": [
+115
+],
+"waves": [
+24392
+]
+},
+"nSYAudioVoiceFoxHeavyGet": {
+"id": 367,
+"sounds": [
+113
+],
+"waves": [
+24056
+]
+},
+"nSYAudioVoiceFoxWin": {
+"id": 368,
+"sounds": [
+110
+],
+"waves": [
+23552
+]
+},
+"nSYAudioVoiceFoxOttotto": {
+"id": 369,
+"sounds": [
+108
+],
+"waves": [
+23216
+]
+},
+"nSYAudioVoiceFoxDead": {
+"id": 370,
+"sounds": [
+104
+],
+"waves": [
+22544
+]
+},
+"nSYAudioVoiceFoxFuraSleep": {
+"id": 371,
+"sounds": [
+112
+],
+"waves": [
+23888
+]
+},
+"nSYAudioVoiceFoxSmash1": {
+"id": 372,
+"sounds": [
+105
+],
+"waves": [
+22712
+]
+},
+"nSYAudioVoiceFoxSmash2": {
+"id": 373,
+"sounds": [
+106
+],
+"waves": [
+22880
+]
+},
+"nSYAudioVoiceFoxSmash3": {
+"id": 374,
+"sounds": [
+107
+],
+"waves": [
+23048
+]
+},
+"nSYAudioVoiceFoxDamage": {
+"id": 375,
+"sounds": [
+103
+],
+"waves": [
+22376
+]
+},
+"nSYAudioVoiceFoxFuraFura": {
+"id": 376,
+"sounds": [
+111
+],
+"waves": [
+23720
+]
+},
+"nSYAudioVoiceKirbyAppeal": {
+"id": 377,
+"sounds": [
+131
+],
+"waves": [
+27080
+]
+},
+"nSYAudioVoiceKirbySmash1": {
+"id": 378,
+"sounds": [
+119
+],
+"waves": [
+25064
+]
+},
+"nSYAudioVoiceKirbySmash2": {
+"id": 379,
+"sounds": [
+120
+],
+"waves": [
+25232
+]
+},
+"nSYAudioVoiceKirbySmash3": {
+"id": 380,
+"sounds": [
+121
+],
+"waves": [
+25400
+]
+},
+"nSYAudioVoiceKirbyCopyLinkSpecialN": {
+"id": 381,
+"sounds": [
+125
+],
+"waves": [
+26072
+]
+},
+"nSYAudioVoiceKirbyCopyPikachuSpecialN": {
+"id": 382,
+"sounds": [
+126
+],
+"waves": [
+26240
+]
+},
+"nSYAudioVoiceKirbySpecialHi": {
+"id": 383,
+"sounds": [
+122
+],
+"waves": [
+25568
+]
+},
+"nSYAudioVoiceKirbyCopyCaptainSpecialNFalcon": {
+"id": 384,
+"sounds": [
+127
+],
+"waves": [
+26408
+]
+},
+"nSYAudioVoiceKirbyCopyCaptainSpecialNPunch": {
+"id": 385,
+"sounds": [
+128
+],
+"waves": [
+26576
+]
+},
+"nSYAudioVoiceKirbyCopyDonkeySpecialN": {
+"id": 386,
+"sounds": [
+124
+],
+"waves": [
+25904
+]
+},
+"nSYAudioVoiceKirbyCopyPurinSpecialN": {
+"id": 387,
+"sounds": [
+130
+],
+"waves": [
+26912
+]
+},
+"nSYAudioVoiceKirbyDeadUp": {
+"id": 388,
+"sounds": [
+134
+],
+"waves": [
+27584
+]
+},
+"nSYAudioVoiceKirbyFuraFura": {
+"id": 389,
+"sounds": [
+132
+],
+"waves": [
+27248
+]
+},
+"nSYAudioVoiceKirbyDamage": {
+"id": 390,
+"sounds": [
+117
+],
+"waves": [
+24728
+]
+},
+"nSYAudioVoiceKirbyUnkGrunt1": {
+"id": 391,
+"sounds": [
+136
+],
+"waves": [
+27920
+]
+},
+"nSYAudioVoiceKirbyUnkGrunt2": {
+"id": 392,
+"sounds": [
+137
+],
+"waves": [
+28088
+]
+},
+"nSYAudioVoiceKirbyHeavyGet": {
+"id": 393,
+"sounds": [
+133
+],
+"waves": [
+27416
+]
+},
+"nSYAudioVoiceKirbyOttotto": {
+"id": 394,
+"sounds": [
+116
+],
+"waves": [
+24560
+]
+},
+"nSYAudioVoiceKirbyCopyNessSpecialN": {
+"id": 395,
+"sounds": [
+129
+],
+"waves": [
+26744
+]
+},
+"nSYAudioVoiceKirbyDead": {
+"id": 396,
+"sounds": [
+118
+],
+"waves": [
+24896
+]
+},
+"nSYAudioVoiceKirbyFuraSleep": {
+"id": 397,
+"sounds": [
+135
+],
+"waves": [
+27752
+]
+},
+"nSYAudioVoiceKirbySpecialLw": {
+"id": 398,
+"sounds": [
+123
+],
+"waves": [
+25736
+]
+},
+"nSYAudioVoiceKirbyUnkPing": {
+"id": 399,
+"sounds": [
+10
+],
+"waves": [
+5936
+]
+},
+"nSYAudioVoiceLinkGrunt1": {
+"id": 400,
+"sounds": [
+138
+],
+"waves": [
+28256
+]
+},
+"nSYAudioVoiceLinkSmash1": {
+"id": 401,
+"sounds": [
+139
+],
+"waves": [
+28424
+]
+},
+"nSYAudioVoiceLinkSmash2": {
+"id": 402,
+"sounds": [
+140
+],
+"waves": [
+28592
+]
+},
+"nSYAudioVoiceLinkSmash3": {
+"id": 403,
+"sounds": [
+141
+],
+"waves": [
+28760
+]
+},
+"nSYAudioVoiceLinkSpecialHi": {
+"id": 404,
+"sounds": [
+142
+],
+"waves": [
+28928
+]
+},
+"nSYAudioVoiceLinkDeadUp": {
+"id": 405,
+"sounds": [
+143
+],
+"waves": [
+29096
+]
+},
+"nSYAudioVoiceLinkFuraFura": {
+"id": 406,
+"sounds": [
+144
+],
+"waves": [
+29264
+]
+},
+"nSYAudioVoiceLinkDamage": {
+"id": 407,
+"sounds": [
+145
+],
+"waves": [
+29432
+]
+},
+"nSYAudioVoiceLinkJump": {
+"id": 408,
+"sounds": [
+146
+],
+"waves": [
+29600
+]
+},
+"nSYAudioVoiceLinkJumpAerial": {
+"id": 409,
+"sounds": [
+147
+],
+"waves": [
+29768
+]
+},
+"nSYAudioVoiceLinkNull": {
+"id": 410,
+"sounds": [
+148
+],
+"waves": [
+29936
+]
+},
+"nSYAudioVoiceLinkHeavyGet": {
+"id": 411,
+"sounds": [
+148
+],
+"waves": [
+29936
+]
+},
+"nSYAudioVoiceLinkOttotto": {
+"id": 412,
+"sounds": [
+149
+],
+"waves": [
+30104
+]
+},
+"nSYAudioVoiceLinkDead": {
+"id": 413,
+"sounds": [
+150
+],
+"waves": [
+30272
+]
+},
+"nSYAudioVoiceLinkFuraSleep": {
+"id": 414,
+"sounds": [
+69
+],
+"waves": [
+16616
+]
+},
+"nSYAudioVoiceLinkGrunt2": {
+"id": 415,
+"sounds": [
+151
+],
+"waves": [
+30440
+]
+},
+"nSYAudioVoiceLuigiSmash1": {
+"id": 416,
+"sounds": [
+152
+],
+"waves": [
+30608
+]
+},
+"nSYAudioVoiceLuigiSmash2": {
+"id": 417,
+"sounds": [
+174
+],
+"waves": [
+34352
+]
+},
+"nSYAudioVoiceLuigiSmash3": {
+"id": 418,
+"sounds": [
+153
+],
+"waves": [
+30776
+]
+},
+"nSYAudioVoiceLuigiSpecialLw": {
+"id": 419,
+"sounds": [
+176
+],
+"waves": [
+34688
+]
+},
+"nSYAudioVoiceLuigiDeadUp": {
+"id": 420,
+"sounds": [
+154
+],
+"waves": [
+30944
+]
+},
+"nSYAudioVoiceLuigiFuraFura": {
+"id": 421,
+"sounds": [
+178
+],
+"waves": [
+35024
+]
+},
+"nSYAudioVoiceLuigiDamage": {
+"id": 422,
+"sounds": [
+155
+],
+"waves": [
+31112
+]
+},
+"nSYAudioVoiceLuigiJump": {
+"id": 423,
+"sounds": [
+156
+],
+"waves": [
+31280
+]
+},
+"nSYAudioVoiceLuigiJumpAerial": {
+"id": 424,
+"sounds": [
+157
+],
+"waves": [
+31448
+]
+},
+"nSYAudioVoiceLuigiLets": {
+"id": 425,
+"sounds": [
+181
+],
+"waves": [
+35528
+]
+},
+"nSYAudioVoiceLuigiHeavyGet": {
+"id": 426,
+"sounds": [
+182
+],
+"waves": [
+35696
+]
+},
+"nSYAudioVoiceLuigiDead": {
+"id": 427,
+"sounds": [
+158
+],
+"waves": [
+31616
+]
+},
+"nSYAudioVoiceLuigiHereWe": {
+"id": 428,
+"sounds": [
+185
+],
+"waves": [
+36200
+]
+},
+"nSYAudioVoiceMarioSmash1": {
+"id": 429,
+"sounds": [
+173
+],
+"waves": [
+34184
+]
+},
+"nSYAudioVoiceMarioSmash2": {
+"id": 430,
+"sounds": [
+174
+],
+"waves": [
+34352
+]
+},
+"nSYAudioVoiceMarioSmash3": {
+"id": 431,
+"sounds": [
+175
+],
+"waves": [
+34520
+]
+},
+"nSYAudioVoiceMarioSpecialLw": {
+"id": 432,
+"sounds": [
+176
+],
+"waves": [
+34688
+]
+},
+"nSYAudioVoiceMarioDeadUp": {
+"id": 433,
+"sounds": [
+177
+],
+"waves": [
+34856
+]
+},
+"nSYAudioVoiceMarioFuraFura": {
+"id": 434,
+"sounds": [
+178
+],
+"waves": [
+35024
+]
+},
+"nSYAudioVoiceMarioJump": {
+"id": 435,
+"sounds": [
+179
+],
+"waves": [
+35192
+]
+},
+"nSYAudioVoiceMarioJumpAerial": {
+"id": 436,
+"sounds": [
+180
+],
+"waves": [
+35360
+]
+},
+"nSYAudioVoiceMarioLets": {
+"id": 437,
+"sounds": [
+181
+],
+"waves": [
+35528
+]
+},
+"nSYAudioVoiceMarioHeavyGet": {
+"id": 438,
+"sounds": [
+182
+],
+"waves": [
+35696
+]
+},
+"nSYAudioVoiceMarioDead": {
+"id": 439,
+"sounds": [
+183
+],
+"waves": [
+35864
+]
+},
+"nSYAudioVoiceMarioDamage": {
+"id": 440,
+"sounds": [
+184
+],
+"waves": [
+36032
+]
+},
+"nSYAudioVoiceMarioHereWe": {
+"id": 441,
+"sounds": [
+185
+],
+"waves": [
+36200
+]
+},
+"nSYAudioVoiceNessAppeal": {
+"id": 442,
+"sounds": [
+256
+],
+"waves": [
+48128
+]
+},
+"nSYAudioVoiceNessSmash1": {
+"id": 443,
+"sounds": [
+252
+],
+"waves": [
+47456
+]
+},
+"nSYAudioVoiceNessSmash2": {
+"id": 444,
+"sounds": [
+253
+],
+"waves": [
+47624
+]
+},
+"nSYAudioVoiceNessSmash3": {
+"id": 445,
+"sounds": [
+254
+],
+"waves": [
+47792
+]
+},
+"nSYAudioVoiceNessUnkGrunt": {
+"id": 446,
+"sounds": [
+262
+],
+"waves": [
+49136
+]
+},
+"nSYAudioVoiceNessDeadUp": {
+"id": 447,
+"sounds": [
+259
+],
+"waves": [
+48632
+]
+},
+"nSYAudioVoiceNessFuraFura": {
+"id": 448,
+"sounds": [
+257
+],
+"waves": [
+48296
+]
+},
+"nSYAudioVoiceNessDamage": {
+"id": 449,
+"sounds": [
+250
+],
+"waves": [
+47120
+]
+},
+"nSYAudioVoiceNessUnkPing": {
+"id": 450,
+"sounds": [
+10
+],
+"waves": [
+5936
+]
+},
+"nSYAudioVoiceNessHeavyGet": {
+"id": 451,
+"sounds": [
+258
+],
+"waves": [
+48464
+]
+},
+"nSYAudioVoiceNessOttotto": {
+"id": 452,
+"sounds": [
+249
+],
+"waves": [
+46952
+]
+},
+"nSYAudioVoiceNessSpecialN": {
+"id": 453,
+"sounds": [
+255
+],
+"waves": [
+47960
+]
+},
+"nSYAudioVoiceNessFinalPK": {
+"id": 454,
+"sounds": [
+263
+],
+"waves": [
+49304
+]
+},
+"nSYAudioVoiceNessFinalStarstorm": {
+"id": 455,
+"sounds": [
+264
+],
+"waves": [
+49472
+]
+},
+"nSYAudioVoiceNessSpecialHi": {
+"id": 456,
+"sounds": [
+261
+],
+"waves": [
+48968
+]
+},
+"nSYAudioVoiceNessDead": {
+"id": 457,
+"sounds": [
+251
+],
+"waves": [
+47288
+]
+},
+"nSYAudioVoiceNessFuraSleep": {
+"id": 458,
+"sounds": [
+260
+],
+"waves": [
+48800
+]
+},
+"nSYAudioVoiceAnnounceComplete": {
+"id": 459,
+"sounds": [
+247
+],
+"waves": [
+46616
+]
+},
+"nSYAudioVoiceAnnounceFailure": {
+"id": 460,
+"sounds": [
+248
+],
+"waves": [
+46784
+]
+},
+"nSYAudioVoiceAnnouncePurinUnused": {
+"id": 461,
+"sounds": [
+197
+],
+"waves": [
+38216
+]
+},
+"nSYAudioVoiceAnnounceMMario": {
+"id": 462,
+"sounds": [
+245
+],
+"waves": [
+46280
+]
+},
+"nSYAudioVoiceAnnounceTitleWait": {
+"id": 463,
+"sounds": [
+3
+],
+"waves": [
+4664
+]
+},
+"nSYAudioVoiceAnnounceNewRecord": {
+"id": 464,
+"sounds": [
+246
+],
+"waves": [
+46448
+]
+},
+"nSYAudioVoiceAnnounceCongra": {
+"id": 465,
+"sounds": [
+242
+],
+"waves": [
+45776
+]
+},
+"nSYAudioVoiceAnnounceIncredible": {
+"id": 466,
+"sounds": [
+243
+],
+"waves": [
+45944
+]
+},
+"nSYAudioVoiceAnnounceOne": {
+"id": 467,
+"sounds": [
+210
+],
+"waves": [
+40400
+]
+},
+"nSYAudioVoiceAnnounceDenied1": {
+"id": 468,
+"sounds": [
+8
+],
+"waves": [
+5600
+]
+},
+"nSYAudioVoiceAnnounceTwo": {
+"id": 469,
+"sounds": [
+209
+],
+"waves": [
+40232
+]
+},
+"nSYAudioVoiceAnnounceThree": {
+"id": 470,
+"sounds": [
+208
+],
+"waves": [
+40064
+]
+},
+"nSYAudioVoiceAnnounceFour": {
+"id": 471,
+"sounds": [
+207
+],
+"waves": [
+39896
+]
+},
+"nSYAudioVoiceAnnounceFive": {
+"id": 472,
+"sounds": [
+206
+],
+"waves": [
+39728
+]
+},
+"nSYAudioVoiceAnnounceDenied2": {
+"id": 473,
+"sounds": [
+8
+],
+"waves": [
+5600
+]
+},
+"nSYAudioVoiceAnnounceDenied3": {
+"id": 474,
+"sounds": [
+8
+],
+"waves": [
+5600
+]
+},
+"nSYAudioVoiceAnnounceBlueTeam": {
+"id": 475,
+"sounds": [
+199
+],
+"waves": [
+38552
+]
+},
+"nSYAudioVoiceAnnounceBoardThePlatforms": {
+"id": 476,
+"sounds": [
+238
+],
+"waves": [
+45104
+]
+},
+"nSYAudioVoiceAnnounceBonusStage": {
+"id": 477,
+"sounds": [
+236
+],
+"waves": [
+44768
+]
+},
+"nSYAudioVoiceAnnounceBreakTheTargets": {
+"id": 478,
+"sounds": [
+237
+],
+"waves": [
+44936
+]
+},
+"nSYAudioVoiceAnnounceSelectPlayer": {
+"id": 479,
+"sounds": [
+203
+],
+"waves": [
+39224
+]
+},
+"nSYAudioVoiceAnnounceComputerPlayer": {
+"id": 480,
+"sounds": [
+223
+],
+"waves": [
+42584
+]
+},
+"nSYAudioVoiceAnnounceContinue": {
+"id": 481,
+"sounds": [
+204
+],
+"waves": [
+39392
+]
+},
+"nSYAudioVoiceAnnounceZako": {
+"id": 482,
+"sounds": [
+235
+],
+"waves": [
+44600
+]
+},
+"nSYAudioVoiceAnnounceDonkey": {
+"id": 483,
+"sounds": [
+187
+],
+"waves": [
+36536
+]
+},
+"nSYAudioVoiceAnnounceDrawGame": {
+"id": 484,
+"sounds": [
+218
+],
+"waves": [
+41744
+]
+},
+"nSYAudioVoiceAnnounceCaptain": {
+"id": 485,
+"sounds": [
+196
+],
+"waves": [
+38048
+]
+},
+"nSYAudioVoiceAnnounceFox": {
+"id": 486,
+"sounds": [
+189
+],
+"waves": [
+36872
+]
+},
+"nSYAudioVoiceAnnounceGameOver": {
+"id": 487,
+"sounds": [
+205
+],
+"waves": [
+39560
+]
+},
+"nSYAudioVoiceAnnounceGameSet": {
+"id": 488,
+"sounds": [
+214
+],
+"waves": [
+41072
+]
+},
+"nSYAudioVoiceAnnounceGDonkey": {
+"id": 489,
+"sounds": [
+233
+],
+"waves": [
+44264
+]
+},
+"nSYAudioVoiceAnnounceGo": {
+"id": 490,
+"sounds": [
+211
+],
+"waves": [
+40568
+]
+},
+"nSYAudioVoiceAnnounceGreenTeam": {
+"id": 491,
+"sounds": [
+200
+],
+"waves": [
+38720
+]
+},
+"nSYAudioVoiceBossDead": {
+"id": 492,
+"sounds": [
+227
+],
+"waves": [
+43256
+]
+},
+"nSYAudioVoiceBossAppear": {
+"id": 493,
+"sounds": [
+226
+],
+"waves": [
+43088
+]
+},
+"nSYAudioVoiceAnnounceHowToPlay": {
+"id": 494,
+"sounds": [
+241
+],
+"waves": [
+45608
+]
+},
+"nSYAudioVoiceAnnounceRaceToTheFinish": {
+"id": 495,
+"sounds": [
+239
+],
+"waves": [
+45272
+]
+},
+"nSYAudioVoiceAnnounceKirby": {
+"id": 496,
+"sounds": [
+193
+],
+"waves": [
+37544
+]
+},
+"nSYAudioVoiceAnnounceLink": {
+"id": 497,
+"sounds": [
+191
+],
+"waves": [
+37208
+]
+},
+"nSYAudioVoiceAnnounceLuigi": {
+"id": 498,
+"sounds": [
+194
+],
+"waves": [
+37712
+]
+},
+"nSYAudioVoiceAnnounceMario": {
+"id": 499,
+"sounds": [
+186
+],
+"waves": [
+36368
+]
+},
+"nSYAudioVoiceAnnounceMarioBros": {
+"id": 500,
+"sounds": [
+234
+],
+"waves": [
+44432
+]
+},
+"nSYAudioVoiceAnnounceNess": {
+"id": 501,
+"sounds": [
+195
+],
+"waves": [
+37880
+]
+},
+"nSYAudioVoiceAnnounceNoContest": {
+"id": 502,
+"sounds": [
+216
+],
+"waves": [
+41408
+]
+},
+"nSYAudioVoiceAnnouncePlayer1": {
+"id": 503,
+"sounds": [
+219
+],
+"waves": [
+41912
+]
+},
+"nSYAudioVoiceAnnouncePlayer2": {
+"id": 504,
+"sounds": [
+220
+],
+"waves": [
+42080
+]
+},
+"nSYAudioVoiceAnnouncePlayer3": {
+"id": 505,
+"sounds": [
+221
+],
+"waves": [
+42248
+]
+},
+"nSYAudioVoiceAnnouncePlayer4": {
+"id": 506,
+"sounds": [
+222
+],
+"waves": [
+42416
+]
+},
+"nSYAudioVoiceAnnouncePikachu": {
+"id": 507,
+"sounds": [
+192
+],
+"waves": [
+37376
+]
+},
+"nSYAudioVoiceAnnouncePurin": {
+"id": 508,
+"sounds": [
+197
+],
+"waves": [
+38216
+]
+},
+"nSYAudioVoiceAnnounceAreYouReady": {
+"id": 509,
+"sounds": [
+225
+],
+"waves": [
+42920
+]
+},
+"nSYAudioVoiceAnnounceRedTeam": {
+"id": 510,
+"sounds": [
+198
+],
+"waves": [
+38384
+]
+},
+"nSYAudioVoiceAnnounceDefeated": {
+"id": 511,
+"sounds": [
+224
+],
+"waves": [
+42752
+]
+},
+"nSYAudioVoiceAnnounceFreeForAll": {
+"id": 512,
+"sounds": [
+201
+],
+"waves": [
+38888
+]
+},
+"nSYAudioVoiceAnnounceSamus": {
+"id": 513,
+"sounds": [
+188
+],
+"waves": [
+36704
+]
+},
+"nSYAudioVoiceAnnounceSuddenDeath": {
+"id": 514,
+"sounds": [
+212
+],
+"waves": [
+40736
+]
+},
+"nSYAudioVoiceUnkRoboEcho1": {
+"id": 515,
+"sounds": [
+9
+],
+"waves": [
+5768
+]
+},
+"nSYAudioVoiceUnkRoboEcho2": {
+"id": 516,
+"sounds": [
+9
+],
+"waves": [
+5768
+]
+},
+"nSYAudioVoiceUnkRoboEcho3": {
+"id": 517,
+"sounds": [
+9
+],
+"waves": [
+5768
+]
+},
+"nSYAudioVoiceUnkRoboEcho4": {
+"id": 518,
+"sounds": [
+9
+],
+"waves": [
+5768
+]
+},
+"nSYAudioVoiceUnkRoboEcho5": {
+"id": 519,
+"sounds": [
+9
+],
+"waves": [
+5768
+]
+},
+"nSYAudioVoiceUnkRoboEcho6": {
+"id": 520,
+"sounds": [
+9
+],
+"waves": [
+5768
+]
+},
+"nSYAudioVoiceUnkRoboEcho7": {
+"id": 521,
+"sounds": [
+9
+],
+"waves": [
+5768
+]
+},
+"nSYAudioVoiceUnkRoboEcho8": {
+"id": 522,
+"sounds": [
+9
+],
+"waves": [
+5768
+]
+},
+"nSYAudioVoiceUnkRoboEcho9": {
+"id": 523,
+"sounds": [
+9
+],
+"waves": [
+5768
+]
+},
+"nSYAudioVoiceUnkRoboEcho10": {
+"id": 524,
+"sounds": [
+9
+],
+"waves": [
+5768
+]
+},
+"nSYAudioVoiceAnnounceFinalStage": {
+"id": 525,
+"sounds": [
+229
+],
+"waves": [
+43592
+]
+},
+"nSYAudioVoiceAnnounceTeamBattle": {
+"id": 526,
+"sounds": [
+202
+],
+"waves": [
+39056
+]
+},
+"nSYAudioVoiceAnnounceTimeUp": {
+"id": 527,
+"sounds": [
+213
+],
+"waves": [
+40904
+]
+},
+"nSYAudioVoiceAnnounceTitle": {
+"id": 528,
+"sounds": [
+228
+],
+"waves": [
+43424
+]
+},
+"nSYAudioVoiceAnnounceKirbyTeam": {
+"id": 529,
+"sounds": [
+232
+],
+"waves": [
+44096
+]
+},
+"nSYAudioVoiceAnnounceTrainingMode": {
+"id": 530,
+"sounds": [
+240
+],
+"waves": [
+45440
+]
+},
+"nSYAudioVoiceAnnounceYoshiTeam": {
+"id": 531,
+"sounds": [
+231
+],
+"waves": [
+43928
+]
+},
+"nSYAudioVoiceAnnounceVersus": {
+"id": 532,
+"sounds": [
+230
+],
+"waves": [
+43760
+]
+},
+"nSYAudioVoiceAnnounceWins": {
+"id": 533,
+"sounds": [
+217
+],
+"waves": [
+41576
+]
+},
+"nSYAudioVoiceAnnounceWinnerIs": {
+"id": 534,
+"sounds": [
+215
+],
+"waves": [
+41240
+]
+},
+"nSYAudioVoiceAnnounceYoshi": {
+"id": 535,
+"sounds": [
+190
+],
+"waves": [
+37040
+]
+},
+"nSYAudioVoicePikachuAppeal": {
+"id": 536,
+"sounds": [
+265
+],
+"waves": [
+49640
+]
+},
+"nSYAudioVoicePikachuSmash1": {
+"id": 537,
+"sounds": [
+266
+],
+"waves": [
+49808
+]
+},
+"nSYAudioVoicePikachuSmash2": {
+"id": 538,
+"sounds": [
+267
+],
+"waves": [
+49976
+]
+},
+"nSYAudioVoicePikachuSmash3": {
+"id": 539,
+"sounds": [
+269
+],
+"waves": [
+50312
+]
+},
+"nSYAudioVoicePikachuSpecialN": {
+"id": 540,
+"sounds": [
+268
+],
+"waves": [
+50144
+]
+},
+"nSYAudioVoicePikachuSpecialLw": {
+"id": 541,
+"sounds": [
+270
+],
+"waves": [
+50480
+]
+},
+"nSYAudioVoicePikachuDeadUp": {
+"id": 542,
+"sounds": [
+271
+],
+"waves": [
+50648
+]
+},
+"nSYAudioVoicePikachuFuraFura": {
+"id": 543,
+"sounds": [
+272
+],
+"waves": [
+50816
+]
+},
+"nSYAudioVoicePikachuDamage": {
+"id": 544,
+"sounds": [
+273
+],
+"waves": [
+50984
+]
+},
+"nSYAudioVoicePikachuFinalPika": {
+"id": 545,
+"sounds": [
+274
+],
+"waves": [
+51152
+]
+},
+"nSYAudioVoicePikachuFinalChu": {
+"id": 546,
+"sounds": [
+275
+],
+"waves": [
+51320
+]
+},
+"nSYAudioVoicePikachuSpecialHi": {
+"id": 547,
+"sounds": [
+276
+],
+"waves": [
+51488
+]
+},
+"nSYAudioVoicePikachuHeavyGet": {
+"id": 548,
+"sounds": [
+277
+],
+"waves": [
+51656
+]
+},
+"nSYAudioVoicePikachuOttotto": {
+"id": 549,
+"sounds": [
+278
+],
+"waves": [
+51824
+]
+},
+"nSYAudioVoicePikachuDead": {
+"id": 550,
+"sounds": [
+279
+],
+"waves": [
+51992
+]
+},
+"nSYAudioVoicePikachuFuraSleep": {
+"id": 551,
+"sounds": [
+280
+],
+"waves": [
+52160
+]
+},
+"nSYAudioVoiceYamabukiFushigibana": {
+"id": 552,
+"sounds": [
+63
+],
+"waves": [
+15560
+]
+},
+"nSYAudioVoiceYamabukiHitokage": {
+"id": 553,
+"sounds": [
+64
+],
+"waves": [
+15728
+]
+},
+"nSYAudioVoiceYamabukiLucky": {
+"id": 554,
+"sounds": [
+164
+],
+"waves": [
+32624
+]
+},
+"nSYAudioVoiceYamabukiMarumine": {
+"id": 555,
+"sounds": [
+23
+],
+"waves": [
+8408
+]
+},
+"nSYAudioVoiceYamabukiPorygon": {
+"id": 556,
+"sounds": [
+65
+],
+"waves": [
+15896
+]
+},
+"nSYAudioVoicePurinAppeal": {
+"id": 557,
+"sounds": [
+290
+],
+"waves": [
+53840
+]
+},
+"nSYAudioVoicePurinSmash1": {
+"id": 558,
+"sounds": [
+286
+],
+"waves": [
+53168
+]
+},
+"nSYAudioVoicePurinSmash2": {
+"id": 559,
+"sounds": [
+284
+],
+"waves": [
+52832
+]
+},
+"nSYAudioVoicePurinSmash3": {
+"id": 560,
+"sounds": [
+281
+],
+"waves": [
+52328
+]
+},
+"nSYAudioVoicePurinSpecialN": {
+"id": 561,
+"sounds": [
+281
+],
+"waves": [
+52328
+]
+},
+"nSYAudioVoicePurinDeadUp": {
+"id": 562,
+"sounds": [
+292
+],
+"waves": [
+54176
+]
+},
+"nSYAudioVoicePurinFuraFura": {
+"id": 563,
+"sounds": [
+294
+],
+"waves": [
+54512
+]
+},
+"nSYAudioVoicePurinDamage": {
+"id": 564,
+"sounds": [
+283
+],
+"waves": [
+52664
+]
+},
+"nSYAudioVoicePurinUnkGrunt1": {
+"id": 565,
+"sounds": [
+295
+],
+"waves": [
+54680
+]
+},
+"nSYAudioVoicePurinUnkGrunt2": {
+"id": 566,
+"sounds": [
+295
+],
+"waves": [
+54680
+]
+},
+"nSYAudioVoicePurinUnkGrunt3": {
+"id": 567,
+"sounds": [
+291
+],
+"waves": [
+54008
+]
+},
+"nSYAudioVoicePurinUnkGrunt4": {
+"id": 568,
+"sounds": [
+282
+],
+"waves": [
+52496
+]
+},
+"nSYAudioVoicePurinFuraSleep": {
+"id": 569,
+"sounds": [
+293
+],
+"waves": [
+54344
+]
+},
+"nSYAudioVoicePurinSpecialLwSleep": {
+"id": 570,
+"sounds": [
+288
+],
+"waves": [
+53504
+]
+},
+"nSYAudioVoicePurinSpecialLwWake": {
+"id": 571,
+"sounds": [
+289
+],
+"waves": [
+53672
+]
+},
+"nSYAudioVoicePurinSpecialHi": {
+"id": 572,
+"sounds": [
+287
+],
+"waves": [
+53336
+]
+},
+"nSYAudioVoiceSamusSmash1": {
+"id": 573,
+"sounds": [
+296
+],
+"waves": [
+54848
+]
+},
+"nSYAudioVoiceSamusSmash2": {
+"id": 574,
+"sounds": [
+296
+],
+"waves": [
+54848
+]
+},
+"nSYAudioVoiceSamusSmash3": {
+"id": 575,
+"sounds": [
+297
+],
+"waves": [
+55064
+]
+},
+"nSYAudioVoiceSamusDeadUp": {
+"id": 576,
+"sounds": [
+298
+],
+"waves": [
+55280
+]
+},
+"nSYAudioVoiceSamusFura": {
+"id": 577,
+"sounds": [
+297
+],
+"waves": [
+55064
+]
+},
+"nSYAudioVoiceSamusAttackHi4": {
+"id": 578,
+"sounds": [
+40
+],
+"waves": [
+11552
+]
+},
+"nSYAudioVoiceSamusUnkSlash": {
+"id": 579,
+"sounds": [
+43
+],
+"waves": [
+12056
+]
+},
+"nSYAudioVoiceSamusAppeal": {
+"id": 580,
+"sounds": [
+299
+],
+"waves": [
+55496
+]
+},
+"nSYAudioVoiceSamusDamage": {
+"id": 581,
+"sounds": [
+5
+],
+"waves": [
+5048
+]
+},
+"nSYAudioVoiceSamusDead": {
+"id": 582,
+"sounds": [
+7
+],
+"waves": [
+5384
+]
+},
+"nSYAudioVoiceYoshiAppeal": {
+"id": 583,
+"sounds": [
+300
+],
+"waves": [
+55664
+]
+},
+"nSYAudioVoiceYoshiSmash1": {
+"id": 584,
+"sounds": [
+301
+],
+"waves": [
+55832
+]
+},
+"nSYAudioVoiceYoshiSmash2": {
+"id": 585,
+"sounds": [
+303
+],
+"waves": [
+56168
+]
+},
+"nSYAudioVoiceYoshiSmash3": {
+"id": 586,
+"sounds": [
+304
+],
+"waves": [
+56336
+]
+},
+"nSYAudioVoiceYoshiCatch": {
+"id": 587,
+"sounds": [
+302
+],
+"waves": [
+56000
+]
+},
+"nSYAudioVoiceYoshiDeadUp": {
+"id": 588,
+"sounds": [
+305
+],
+"waves": [
+56504
+]
+},
+"nSYAudioVoiceYoshiFuraFura": {
+"id": 589,
+"sounds": [
+306
+],
+"waves": [
+56672
+]
+},
+"nSYAudioVoiceYoshiDamage": {
+"id": 590,
+"sounds": [
+307
+],
+"waves": [
+56840
+]
+},
+"nSYAudioVoiceYoshiJump": {
+"id": 591,
+"sounds": [
+308
+],
+"waves": [
+57008
+]
+},
+"nSYAudioVoiceYoshiJumpAerial": {
+"id": 592,
+"sounds": [
+310
+],
+"waves": [
+57344
+]
+},
+"nSYAudioVoiceYoshiOttotto": {
+"id": 594,
+"sounds": [
+311
+],
+"waves": [
+57512
+]
+},
+"nSYAudioVoiceYoshiDead": {
+"id": 595,
+"sounds": [
+312
+],
+"waves": [
+57680
+]
+},
+"nSYAudioVoiceYoshiFuraSleep": {
+"id": 596,
+"sounds": [
+70
+],
+"waves": [
+16784
+]
+},
+"nSYAudioVoiceYoshiUnkGrunt1": {
+"id": 597,
+"sounds": [
+313
+],
+"waves": [
+57848
+]
+},
+"nSYAudioVoiceYoshiSpecialLwJump": {
+"id": 598,
+"sounds": [
+314
+],
+"waves": [
+58016
+]
+},
+"nSYAudioVoiceYoshiSpecialLwFall": {
+"id": 599,
+"sounds": [
+309
+],
+"waves": [
+57176
+]
+},
+"nSYAudioVoiceYoshiUnkGrunt2": {
+"id": 600,
+"sounds": [
+315
+],
+"waves": [
+58184
+]
+},
+"nSYAudioVoiceYoshiThrow": {
+"id": 601,
+"sounds": [
+316
+],
+"waves": [
+58352
+]
+},
+"nSYAudioVoiceYoshiUnkVocalize": {
+"id": 602,
+"sounds": [
+317
+],
+"waves": [
+58520
+]
+},
+"nSYAudioVoicePublicDonkey": {
+"id": 603,
+"sounds": [
+51
+],
+"waves": [
+13544
+]
+},
+"nSYAudioVoicePublicCaptain": {
+"id": 604,
+"sounds": [
+52
+],
+"waves": [
+13712
+]
+},
+"nSYAudioVoicePublicFox": {
+"id": 605,
+"sounds": [
+53
+],
+"waves": [
+13880
+]
+},
+"nSYAudioVoicePublicKirby": {
+"id": 606,
+"sounds": [
+54
+],
+"waves": [
+14048
+]
+},
+"nSYAudioVoicePublicLink": {
+"id": 607,
+"sounds": [
+55
+],
+"waves": [
+14216
+]
+},
+"nSYAudioVoicePublicLuigi": {
+"id": 608,
+"sounds": [
+56
+],
+"waves": [
+14384
+]
+},
+"nSYAudioVoicePublicMario": {
+"id": 609,
+"sounds": [
+57
+],
+"waves": [
+14552
+]
+},
+"nSYAudioVoicePublicNess": {
+"id": 610,
+"sounds": [
+58
+],
+"waves": [
+14720
+]
+},
+"nSYAudioVoicePublicPikachu": {
+"id": 611,
+"sounds": [
+59
+],
+"waves": [
+14888
+]
+},
+"nSYAudioVoicePublicPurin": {
+"id": 612,
+"sounds": [
+60
+],
+"waves": [
+15056
+]
+},
+"nSYAudioVoicePublicSamus": {
+"id": 613,
+"sounds": [
+61
+],
+"waves": [
+15224
+]
+},
+"nSYAudioVoicePublicYoshi": {
+"id": 614,
+"sounds": [
+62
+],
+"waves": [
+15392
+]
+},
+"nSYAudioVoicePublicGaspL": {
+"id": 615,
+"sounds": [
+321
+],
+"waves": [
+59240
+]
+},
+"nSYAudioVoicePublicGaspM": {
+"id": 616,
+"sounds": [
+37
+],
+"waves": [
+11000
+]
+},
+"nSYAudioVoicePublicGaspS": {
+"id": 617,
+"sounds": [
+38
+],
+"waves": [
+11168
+]
+},
+"nSYAudioVoicePublicCheer": {
+"id": 618,
+"sounds": [
+37
+],
+"waves": [
+11000
+]
+},
+"nSYAudioVoicePublicAmazed": {
+"id": 619,
+"sounds": [
+24
+],
+"waves": [
+8576
+]
+},
+"nSYAudioVoicePublicGaspClap": {
+"id": 620,
+"sounds": [
+37
+],
+"waves": [
+11000
+]
+},
+"nSYAudioVoicePublicWin": {
+"id": 621,
+"sounds": [
+320
+],
+"waves": [
+59072
+]
+},
+"nSYAudioVoicePublicDamageL": {
+"id": 622,
+"sounds": [
+37
+],
+"waves": [
+11000
+]
+},
+"nSYAudioVoicePublicDamageM": {
+"id": 623,
+"sounds": [
+38
+],
+"waves": [
+11168
+]
+},
+"nSYAudioVoicePublicNoContest": {
+"id": 624,
+"sounds": [
+320
+],
+"waves": [
+59072
+]
+},
+"nSYAudioVoicePublicDamageS": {
+"id": 625,
+"sounds": [
+37
+],
+"waves": [
+11000
+]
+},
+"nSYAudioVoicePublicExcited": {
+"id": 626,
+"sounds": [
+320
+],
+"waves": [
+59072
+]
+},
+"nSYAudioVoicePublicAbsorb": {
+"id": 627,
+"sounds": [
+25
+],
+"waves": [
+8792
+]
+},
+"nSYAudioVoicePublicClapL": {
+"id": 628,
+"sounds": [
+24
+],
+"waves": [
+8576
+]
+},
+"nSYAudioVoicePublicClapS": {
+"id": 629,
+"sounds": [
+24
+],
+"waves": [
+8576
+]
+},
+"nSYAudioVoiceUnkExplode": {
+"id": 641,
+"sounds": [
+4
+],
+"waves": [
+4832
+]
+},
+"nSYAudioVoiceUnkSpin": {
+"id": 642,
+"sounds": [
+39
+],
+"waves": [
+11336
+]
+},
+"nSYAudioVoiceUnkBurn": {
+"id": 643,
+"sounds": [
+7
+],
+"waves": [
+5384
+]
+},
+"nSYAudioVoiceUnkSlashM": {
+"id": 644,
+"sounds": [
+42
+],
+"waves": [
+11888
+]
+},
+"nSYAudioVoiceUnkSlashL": {
+"id": 645,
+"sounds": [
+42
+],
+"waves": [
+11888
+]
+},
+"nSYAudioVoiceUnkSlashS1": {
+"id": 646,
+"sounds": [
+42
+],
+"waves": [
+11888
+]
+},
+"nSYAudioVoiceUnkSlashS2": {
+"id": 647,
+"sounds": [
+42
+],
+"waves": [
+11888
+]
+},
+"nSYAudioVoiceUnkShockL": {
+"id": 648,
+"sounds": [
+12
+],
+"waves": [
+6320
+]
+},
+"nSYAudioVoiceUnkShockM": {
+"id": 649,
+"sounds": [
+12
+],
+"waves": [
+6320
+]
+},
+"nSYAudioVoicePublicUnkGasp": {
+"id": 650,
+"sounds": [
+38
+],
+"waves": [
+11168
+]
+},
+"nSYAudioFGMVoiceEnd": {
+"id": 651,
+"sounds": [
+30
+],
+"waves": [
+9680
+]
+},
+"nSYAudioFGMVoiceEnumCount": {
+"id": 652,
+"sounds": [
+30
+],
+"waves": [
+9680
+]
+}
+}

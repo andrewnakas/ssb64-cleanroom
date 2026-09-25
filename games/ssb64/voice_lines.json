@@ -1,0 +1,324 @@
+{
+ "_doc": "Announcer lines (text from the gmFGMVoiceID names). Placeholder TTS until the user's own recordings.",
+ "_characters": {
+  "announcer": {
+   "tts": {
+    "model": "en_US-ryan-high",
+    "semitones": -2.0,
+    "length": 0.95,
+    "noise": 0.6,
+    "noise_w": 0.7
+   }
+  }
+ },
+ "sounds2/46616.aiff": {
+  "who": "announcer",
+  "text": "Complete!",
+  "voice_id": "nSYAudioVoiceAnnounceComplete"
+ },
+ "sounds2/46784.aiff": {
+  "who": "announcer",
+  "text": "Failure.",
+  "voice_id": "nSYAudioVoiceAnnounceFailure"
+ },
+ "sounds2/38216.aiff": {
+  "who": "announcer",
+  "text": "Jigglypuff!",
+  "voice_id": "nSYAudioVoiceAnnouncePurin"
+ },
+ "sounds2/46280.aiff": {
+  "who": "announcer",
+  "text": "Metal Mario!",
+  "voice_id": "nSYAudioVoiceAnnounceMMario"
+ },
+ "sounds2/4664.aiff": {
+  "who": "announcer",
+  "text": "Super Smash Brothers!",
+  "voice_id": "nSYAudioVoiceAnnounceTitleWait"
+ },
+ "sounds2/46448.aiff": {
+  "who": "announcer",
+  "text": "New record!",
+  "voice_id": "nSYAudioVoiceAnnounceNewRecord"
+ },
+ "sounds2/45776.aiff": {
+  "who": "announcer",
+  "text": "Congratulations!",
+  "voice_id": "nSYAudioVoiceAnnounceCongra"
+ },
+ "sounds2/45944.aiff": {
+  "who": "announcer",
+  "text": "Incredible!",
+  "voice_id": "nSYAudioVoiceAnnounceIncredible"
+ },
+ "sounds2/40400.aiff": {
+  "who": "announcer",
+  "text": "One!",
+  "voice_id": "nSYAudioVoiceAnnounceOne"
+ },
+ "sounds2/5600.aiff": {
+  "who": "announcer",
+  "text": "Choose your character!",
+  "voice_id": "nSYAudioVoiceAnnounceDenied3"
+ },
+ "sounds2/40232.aiff": {
+  "who": "announcer",
+  "text": "Two!",
+  "voice_id": "nSYAudioVoiceAnnounceTwo"
+ },
+ "sounds2/40064.aiff": {
+  "who": "announcer",
+  "text": "Three!",
+  "voice_id": "nSYAudioVoiceAnnounceThree"
+ },
+ "sounds2/39896.aiff": {
+  "who": "announcer",
+  "text": "Four!",
+  "voice_id": "nSYAudioVoiceAnnounceFour"
+ },
+ "sounds2/39728.aiff": {
+  "who": "announcer",
+  "text": "Five!",
+  "voice_id": "nSYAudioVoiceAnnounceFive"
+ },
+ "sounds2/38552.aiff": {
+  "who": "announcer",
+  "text": "Blue team!",
+  "voice_id": "nSYAudioVoiceAnnounceBlueTeam"
+ },
+ "sounds2/45104.aiff": {
+  "who": "announcer",
+  "text": "Board the platforms!",
+  "voice_id": "nSYAudioVoiceAnnounceBoardThePlatforms"
+ },
+ "sounds2/44768.aiff": {
+  "who": "announcer",
+  "text": "Bonus stage!",
+  "voice_id": "nSYAudioVoiceAnnounceBonusStage"
+ },
+ "sounds2/44936.aiff": {
+  "who": "announcer",
+  "text": "Break the targets!",
+  "voice_id": "nSYAudioVoiceAnnounceBreakTheTargets"
+ },
+ "sounds2/39224.aiff": {
+  "who": "announcer",
+  "text": "Choose your character!",
+  "voice_id": "nSYAudioVoiceAnnounceSelectPlayer"
+ },
+ "sounds2/42584.aiff": {
+  "who": "announcer",
+  "text": "Computer player!",
+  "voice_id": "nSYAudioVoiceAnnounceComputerPlayer"
+ },
+ "sounds2/39392.aiff": {
+  "who": "announcer",
+  "text": "Continue?",
+  "voice_id": "nSYAudioVoiceAnnounceContinue"
+ },
+ "sounds2/44600.aiff": {
+  "who": "announcer",
+  "text": "Fighting Polygon Team!",
+  "voice_id": "nSYAudioVoiceAnnounceZako"
+ },
+ "sounds2/36536.aiff": {
+  "who": "announcer",
+  "text": "Donkey Kong!",
+  "voice_id": "nSYAudioVoiceAnnounceDonkey"
+ },
+ "sounds2/41744.aiff": {
+  "who": "announcer",
+  "text": "Draw game!",
+  "voice_id": "nSYAudioVoiceAnnounceDrawGame"
+ },
+ "sounds2/38048.aiff": {
+  "who": "announcer",
+  "text": "Captain Falcon!",
+  "voice_id": "nSYAudioVoiceAnnounceCaptain"
+ },
+ "sounds2/36872.aiff": {
+  "who": "announcer",
+  "text": "Fox!",
+  "voice_id": "nSYAudioVoiceAnnounceFox"
+ },
+ "sounds2/39560.aiff": {
+  "who": "announcer",
+  "text": "Game over.",
+  "voice_id": "nSYAudioVoiceAnnounceGameOver"
+ },
+ "sounds2/41072.aiff": {
+  "who": "announcer",
+  "text": "Game set!",
+  "voice_id": "nSYAudioVoiceAnnounceGameSet"
+ },
+ "sounds2/44264.aiff": {
+  "who": "announcer",
+  "text": "Giant Donkey Kong!",
+  "voice_id": "nSYAudioVoiceAnnounceGDonkey"
+ },
+ "sounds2/40568.aiff": {
+  "who": "announcer",
+  "text": "Go!",
+  "voice_id": "nSYAudioVoiceAnnounceGo"
+ },
+ "sounds2/38720.aiff": {
+  "who": "announcer",
+  "text": "Green team!",
+  "voice_id": "nSYAudioVoiceAnnounceGreenTeam"
+ },
+ "sounds2/45608.aiff": {
+  "who": "announcer",
+  "text": "How to play.",
+  "voice_id": "nSYAudioVoiceAnnounceHowToPlay"
+ },
+ "sounds2/45272.aiff": {
+  "who": "announcer",
+  "text": "Race to the finish!",
+  "voice_id": "nSYAudioVoiceAnnounceRaceToTheFinish"
+ },
+ "sounds2/37544.aiff": {
+  "who": "announcer",
+  "text": "Kirby!",
+  "voice_id": "nSYAudioVoiceAnnounceKirby"
+ },
+ "sounds2/37208.aiff": {
+  "who": "announcer",
+  "text": "Link!",
+  "voice_id": "nSYAudioVoiceAnnounceLink"
+ },
+ "sounds2/37712.aiff": {
+  "who": "announcer",
+  "text": "Luigi!",
+  "voice_id": "nSYAudioVoiceAnnounceLuigi"
+ },
+ "sounds2/36368.aiff": {
+  "who": "announcer",
+  "text": "Mario!",
+  "voice_id": "nSYAudioVoiceAnnounceMario"
+ },
+ "sounds2/44432.aiff": {
+  "who": "announcer",
+  "text": "Mario Brothers!",
+  "voice_id": "nSYAudioVoiceAnnounceMarioBros"
+ },
+ "sounds2/37880.aiff": {
+  "who": "announcer",
+  "text": "Ness!",
+  "voice_id": "nSYAudioVoiceAnnounceNess"
+ },
+ "sounds2/41408.aiff": {
+  "who": "announcer",
+  "text": "No contest!",
+  "voice_id": "nSYAudioVoiceAnnounceNoContest"
+ },
+ "sounds2/41912.aiff": {
+  "who": "announcer",
+  "text": "Player one!",
+  "voice_id": "nSYAudioVoiceAnnouncePlayer1"
+ },
+ "sounds2/42080.aiff": {
+  "who": "announcer",
+  "text": "Player two!",
+  "voice_id": "nSYAudioVoiceAnnouncePlayer2"
+ },
+ "sounds2/42248.aiff": {
+  "who": "announcer",
+  "text": "Player three!",
+  "voice_id": "nSYAudioVoiceAnnouncePlayer3"
+ },
+ "sounds2/42416.aiff": {
+  "who": "announcer",
+  "text": "Player four!",
+  "voice_id": "nSYAudioVoiceAnnouncePlayer4"
+ },
+ "sounds2/37376.aiff": {
+  "who": "announcer",
+  "text": "Pikachu!",
+  "voice_id": "nSYAudioVoiceAnnouncePikachu"
+ },
+ "sounds2/42920.aiff": {
+  "who": "announcer",
+  "text": "Are you ready?",
+  "voice_id": "nSYAudioVoiceAnnounceAreYouReady"
+ },
+ "sounds2/38384.aiff": {
+  "who": "announcer",
+  "text": "Red team!",
+  "voice_id": "nSYAudioVoiceAnnounceRedTeam"
+ },
+ "sounds2/42752.aiff": {
+  "who": "announcer",
+  "text": "Defeated!",
+  "voice_id": "nSYAudioVoiceAnnounceDefeated"
+ },
+ "sounds2/38888.aiff": {
+  "who": "announcer",
+  "text": "Free for all!",
+  "voice_id": "nSYAudioVoiceAnnounceFreeForAll"
+ },
+ "sounds2/36704.aiff": {
+  "who": "announcer",
+  "text": "Samus!",
+  "voice_id": "nSYAudioVoiceAnnounceSamus"
+ },
+ "sounds2/40736.aiff": {
+  "who": "announcer",
+  "text": "Sudden death!",
+  "voice_id": "nSYAudioVoiceAnnounceSuddenDeath"
+ },
+ "sounds2/43592.aiff": {
+  "who": "announcer",
+  "text": "Final stage!",
+  "voice_id": "nSYAudioVoiceAnnounceFinalStage"
+ },
+ "sounds2/39056.aiff": {
+  "who": "announcer",
+  "text": "Team battle!",
+  "voice_id": "nSYAudioVoiceAnnounceTeamBattle"
+ },
+ "sounds2/40904.aiff": {
+  "who": "announcer",
+  "text": "Time up!",
+  "voice_id": "nSYAudioVoiceAnnounceTimeUp"
+ },
+ "sounds2/43424.aiff": {
+  "who": "announcer",
+  "text": "Super Smash Brothers!",
+  "voice_id": "nSYAudioVoiceAnnounceTitle"
+ },
+ "sounds2/44096.aiff": {
+  "who": "announcer",
+  "text": "Kirby team!",
+  "voice_id": "nSYAudioVoiceAnnounceKirbyTeam"
+ },
+ "sounds2/45440.aiff": {
+  "who": "announcer",
+  "text": "Training mode.",
+  "voice_id": "nSYAudioVoiceAnnounceTrainingMode"
+ },
+ "sounds2/43928.aiff": {
+  "who": "announcer",
+  "text": "Yoshi team!",
+  "voice_id": "nSYAudioVoiceAnnounceYoshiTeam"
+ },
+ "sounds2/43760.aiff": {
+  "who": "announcer",
+  "text": "Versus!",
+  "voice_id": "nSYAudioVoiceAnnounceVersus"
+ },
+ "sounds2/41576.aiff": {
+  "who": "announcer",
+  "text": "Wins!",
+  "voice_id": "nSYAudioVoiceAnnounceWins"
+ },
+ "sounds2/41240.aiff": {
+  "who": "announcer",
+  "text": "This game's winner is...",
+  "voice_id": "nSYAudioVoiceAnnounceWinnerIs"
+ },
+ "sounds2/37040.aiff": {
+  "who": "announcer",
+  "text": "Yoshi!",
+  "voice_id": "nSYAudioVoiceAnnounceYoshi"
+ }
+}

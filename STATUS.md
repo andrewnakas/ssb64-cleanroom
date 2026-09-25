@@ -23,21 +23,29 @@
 - Dev harness note: N64Wasm speed in headless Edge is erratic for retail too (some intro scenes at
   1-2 fps); tests skip the intro (Start during the logo) and compare retail vs clean in the same run.
 
-## Works (2026-09-25 ~05:00)
-- Clean ROM (16 MB, relocData re-packed in place, no code patches) boots, menus and character
-  select work, attract demos play at 60 fps (tutorial match, 4-player Dream Land, stage fly-bys).
-- Every texture/sprite/palette (4,540 + 724, found structurally + decomp declarations), 246 particle
-  frames and 439 samples regenerated. Taint: 0 failing over 6,007 ranges.
-- Site: N64Wasm + clean ROM, keyboard + gamepad. Published to andrewnakas/ssb64-cleanroom (gh-pages).
+## Works (2026-09-25 ~07:30)
+- Live: https://andrewnakas.github.io/ssb64-cleanroom/ (clean 16 MB ROM + N64Wasm, keyboard + gamepad).
+- Boots; menus, 1P menu, character select work; attract demos play at 60 fps (tutorial match,
+  4-player Dream Land, stage fly-bys). Clean ROM = retail code + regenerated assets, relocData
+  re-packed in place (no code patches).
+- Regenerated: 4,540 textures/sprites + 724 palettes (found structurally + every block the decomp
+  declares), 246 particle frames, 439 samples; announcer = Piper TTS placeholders (62 slots).
+  Taint: 0 failing (6,007 ranges). Publishing is gated on taint (`ssb64/publish.sh`).
+- Readable: menu labels (I/IA sprites rebuilt from the kept outline), CSS labels, HUD digits.
 
 ## Known issues / next
-- Text is blurry (4x4 grids): menus, names, HUD need re-typesetting (priority 2).
-- Portraits/icons/faces are colour grids: need briefs/renders (priority 3).
-- Some fighters/posters partly dark: CI palette linking is heuristic for material textures.
-- A few stage textures striped (Congo Jungle) - format of a few DL loads.
-- N64Wasm in headless Edge is sometimes very slow in some scenes (retail too) - check in a real browser.
-- Voices/announcer: placeholder pass + practice pack not done yet.
+- Portraits, stage art, big RGBA pictures are colour grids (blurry). Plan: render fighters from their
+  own models (`games/ssb64/fighter_render.py`, skeleton + DL walk working; texture/palette binding
+  still wrong for some fighters) for CSS portraits / results / stock icons.
+- Some fighters render dark/noisy in game: CI palette links for material textures are heuristic;
+  fix by recording the TLUT actually loaded in each DL walk (in progress).
+- Title screen / some intro scenes are slow in *headless* Edge (retail too); please check speed in a
+  real browser.
+- Fighter voices (grunts) are resynthesised noise-like placeholders; only announcer lines are TTS.
 
 ## For the morning
-- Open the site in a real browser (desktop GPU), play 1P/VS: tell me what looks worst.
-- Voice practice pack: not built yet (see next steps).
+1. Play the site in a real browser (desktop, GPU): 1P and VS. Tell me what looks/sounds worst.
+2. Record the announcer: `C:/Users/andre/n64work/ssb64/practice/` has SCRIPT.txt (62 lines, 60
+   distinct), `practice_announcer_call_and_response.wav` (listen, speak after each beep) and `clips/`
+   (reference, personal use only, never committed). Put your takes in `practice/takes/`; I will cut
+   them (cleanroom.voice.takes) into `games/ssb64/voices/<slot>.wav` and rebuild.
