@@ -122,7 +122,7 @@ def build(rom):
     patches = {}
     jobs = [(name, wt, w) for name in spec for wt, w in spec[name].items()]
     res = {}
-    with ProcessPoolExecutor(12) as ex:
+    with ProcessPoolExecutor(6) as ex:
         for name, wt, data, book, state in ex.map(_make, jobs, chunksize=2):
             res[(name, wt)] = (data, book, state)
     for name, c0, c1, t0, t1 in BANKS:
