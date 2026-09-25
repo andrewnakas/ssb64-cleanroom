@@ -71,8 +71,14 @@
 - Fighter voices (grunts) are resynthesised noise-like placeholders; only announcer lines are TTS.
 
 ## For the morning
-1. Play the site in a real browser (desktop, GPU): 1P and VS. Tell me what looks/sounds worst.
-2. Record the announcer: `C:/Users/andre/n64work/ssb64/practice/` has SCRIPT.txt (62 lines, 60
-   distinct), `practice_announcer_call_and_response.wav` (listen, speak after each beep) and `clips/`
-   (reference, personal use only, never committed). Put your takes in `practice/takes/`; I will cut
-   them (cleanroom.voice.takes) into `games/ssb64/voices/<slot>.wav` and rebuild.
+1. Open https://andrewnakas.github.io/ssb64-cleanroom/ in a real desktop browser and play 1P and VS.
+   NOT verified by me: a full hand-played match on the clean ROM. Headless Edge runs N64Wasm at
+   1-10 fps on the title and some menus (retail ROM too), so my scripted runs time out before the
+   fight. The attract-mode demo matches DID play at 60 fps on an earlier clean build.
+   Try `?rice=1` if the default renderer is slow. If it is slow in your browser too, the next step is
+   a different WASM core (e.g. a ParaLLEl/mupen64plus-next build) rather than asset work.
+2. Tell me what looks/sounds worst. Known: fighters' in-match colours are unverified since the
+   per-file palette change; alt costumes all share one colour set; model textures are colour grids.
+3. Record the announcer: `C:/Users/andre/n64work/ssb64/practice/` (SCRIPT.txt, 62 lines / 60 distinct,
+   practice_announcer_call_and_response.wav, reference clips - personal use only). Put takes in
+   `practice/takes/`; I cut them into `games/ssb64/voices/<slot>.wav` and rebuild.
