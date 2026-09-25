@@ -64,8 +64,32 @@ def resolve(hits):
         k = (h["fid"], h["off"], h["kind"])
         if k not in by or rank[h["src"]] < rank[by[k]["src"]]:
             by[k] = dict(h)
+    # sizes: a range never runs into the next known range; MObj "frames" that are really palette
+    # frames (0x28 apart) become palettes; the last frame of an array gets its siblings' size
+    rs = sorted(by.values(), key=lambda v: (v["fid"], v["off"], v["kind"] == "tex"))
+    for a, b in zip(rs, rs[1:]):
+        if a["fid"] == b["fid"] and b["off"] < a["off"] + a["nbytes"] and b["off"] > a["off"]:
+            a["clipped_from"] = a["nbytes"]
+            a["nbytes"] = b["off"] - a["off"]
+    groups = {}
+    for v in by.values():
+        if v["src"] == "mobj" and v["kind"] == "tex":
+            groups.setdefault(tuple(v["at"]), []).append(v)
+    for g in groups.values():
+        sizes = [v["nbytes"] for v in g if "clipped_from" in v]
+        if sizes:
+            m = min(sizes)
+            for v in g:
+                v["nbytes"] = min(v["nbytes"], m)
+        for v in g:
+            if v["nbytes"] <= 0x28 and v["fmt"] == "CI":
+                v["kind"] = "pal"
+                v["fmt"], v["siz"], v["w"], v["h"] = "RGBA", 16, v["nbytes"] // 2, 1
+    for v in by.values():
+        if v["kind"] == "tex" and v.get("clipped_from"):
+            v["h"] = max(1, v["nbytes"] * 8 // (v["siz"] * v["w"]))
     tex = [v for v in by.values() if v["kind"] == "tex"]
-    pal = [v for v in by.values() if v["kind"] == "pal"]
+    pal = list({(v["fid"], v["off"]): v for v in by.values() if v["kind"] == "pal"}.values())
     # palette link: sprites carry it; dl textures -> nearest TLUT load in the same DL; mobj -> same struct
     pal_at = {}
     for p in [h for h in hits if h["kind"] == "pal"]:
@@ -134,6 +158,12 @@ def main():
     hits = texscan.scan_all(files, DESC)
     tex, pal = resolve(hits)
     os.makedirs(SPEC, exist_ok=True)
+    from concurrent.futures import ThreadPoolExecutor
+    with ThreadPoolExecutor(16) as ex:
+        infos = list(ex.map(lambda e: reloc.vpk0_info(e["blob"]) if e.get("vpk0") and "blob" in e else None, ents))
+    for e, inf in zip(ents, infos):
+        if inf:
+            e["vpk"] = inf
     json.dump([{k: v for k, v in e.items() if k != "blob"} for e in ents],
               open(os.path.join(SPEC, "reloc_table.json"), "w"))
     facts, bad = [], 0

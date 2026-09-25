@@ -33,12 +33,27 @@ def parse(region):
     return ents
 
 
-def vpk0(mode, data):
+def vpk0(mode, data, cfg=None):
+    """mode c/d. cfg = (method, offsets_tree, lengths_tree) forces the Huffman tree shapes: the game's
+    decoder has room for only 64 tree nodes (both trees) and 20-deep stacks, so free-form trees crash it."""
     with tempfile.TemporaryDirectory() as d:
-        i, o = os.path.join(d, "i"), os.path.join(d, "o")
+        i, o = os.path.join(d, "i.bin"), os.path.join(d, "o")
         open(i, "wb").write(data)
+        if cfg and mode == "c":
+            open(os.path.join(d, "i.vpk0_config"), "w").write("\n".join(str(x) for x in cfg))
         subprocess.run([VPK0, mode, i, o], check=True, stdout=subprocess.DEVNULL)
         return open(o, "rb").read()
+
+
+def vpk0_info(blob):
+    """(method, offsets_tree, lengths_tree) of a vpk0 stream."""
+    with tempfile.TemporaryDirectory() as d:
+        i = os.path.join(d, "i")
+        open(i, "wb").write(blob)
+        out = subprocess.run([VPK0, "i", i], check=True, capture_output=True, text=True).stdout
+    kv = {l.split(":", 1)[0].strip(): l.split(":", 1)[1].strip() for l in out.splitlines() if ":" in l}
+    method = 1 if "Method 1" in out else 0
+    return [method, kv["Tree offsets"], kv["Tree lengths"]]
 
 
 def file_data(e):

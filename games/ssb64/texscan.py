@@ -234,10 +234,15 @@ def scan_all(files, desc_path):
         scan_sprites(F, spr.get(F.fid, []), out)
     # pixel data never holds pointer slots: clip each range at the first one inside it
     import bisect
-    slots = {F.fid: sorted(F.ptr) for F in files}
+    slots = {F.fid: set(F.ptr) for F in files}
+    for F in files:                      # pointer targets start other objects: clip there too
+        for (tf, to) in F.ptr.values():
+            if 0 <= tf < len(files):
+                slots[tf].add(to)
+    slots = {k: sorted(v) for k, v in slots.items()}
     for o in out:
         ps = slots.get(o["fid"], [])
-        j = bisect.bisect_left(ps, o["off"])
+        j = bisect.bisect_right(ps, o["off"])
         if j < len(ps) and ps[j] < o["off"] + o["nbytes"]:
             o["clipped_from"] = o["nbytes"]
             o["nbytes"] = ps[j] - o["off"]

@@ -22,6 +22,10 @@ BROWSERS = [r"C:\Program Files (x86)\Microsoft\Edge\Application\msedge.exe",
             r"C:\Program Files\Google\Chrome\Application\chrome.exe"]
 
 
+KEYS = {"Enter": (13, "Enter"), "ArrowLeft": (37, "ArrowLeft"), "ArrowUp": (38, "ArrowUp"),
+        "ArrowRight": (39, "ArrowRight"), "ArrowDown": (40, "ArrowDown"), " ": (32, "Space")}
+
+
 def free_port():
     s = socket.socket()
     s.bind(("127.0.0.1", 0))
@@ -37,6 +41,7 @@ def main():
     ap.add_argument("--secs", default="10,20")
     ap.add_argument("--query", default="")
     ap.add_argument("--sheet", action="store_true")
+    ap.add_argument("--keys", default="", help="t:key:dur,... real key events via CDP (Enter, d, s, a, ArrowLeft, ...)")
     ap.add_argument("--gpu", action="store_true", help="use the real GPU instead of SwiftShader")
     a = ap.parse_args()
     os.makedirs(a.out, exist_ok=True)
@@ -87,13 +92,34 @@ def main():
         send("Page.navigate", url=url)
         t0 = time.time()
         shots = []
-        for s in sorted(float(x) for x in a.secs.split(",")):
-            ws.settimeout(0.2)
-            while time.time() - t0 < s:
+        events = []
+        for item in filter(None, a.keys.split(",")):
+            t, key, *dur = item.split(":")
+            dur = float(dur[0]) if dur else 0.15
+            events += [(float(t), "keyDown", key), (float(t) + dur, "keyUp", key)]
+        events.sort()
+
+        def key_event(kind, key):
+            vk = KEYS.get(key, (ord(key.upper()), "Key" + key.upper()) if len(key) == 1 else (0, key))
+            send("Input.dispatchKeyEvent", type=kind, key=key, code=vk[1], windowsVirtualKeyCode=vk[0],
+                 nativeVirtualKeyCode=vk[0])
+
+        def pump(until):
+            ws.settimeout(0.05)
+            while time.time() - t0 < until:
+                while events and time.time() - t0 >= events[0][0]:
+                    _, kind, key = events.pop(0)
+                    ws.settimeout(60)
+                    key_event(kind, key)
+                    ws.settimeout(0.05)
                 try:
                     note(json.loads(ws.recv()))
                 except Exception:
                     pass
+
+        for s in sorted(float(x) for x in a.secs.split(",")):
+            pump(s)
+            ws.settimeout(60)
             ws.settimeout(60)
             r = send("Page.captureScreenshot", format="png")
             fn = os.path.join(a.out, f"shot_{s:g}.png")
@@ -108,14 +134,14 @@ def main():
     for line in console[-8:]:
         print("  |", line[:160])
     if a.sheet and shots:
-        from PIL import Image
-        ims = [Image.open(f).convert("RGB") for f in shots]
-        W = sum(i.width for i in ims)
-        sheet = Image.new("RGB", (W, max(i.height for i in ims)))
-        x = 0
-        for i in ims:
-            sheet.paste(i, (x, 0))
-            x += i.width
+        from PIL import Image, ImageDraw
+        ims = [Image.open(f).convert("RGB").crop((110, 134, 750, 614)).resize((400, 300)) for f in shots]
+        cols = min(4, len(ims))
+        rows = (len(ims) + cols - 1) // cols
+        sheet = Image.new("RGB", (cols * 400, rows * 300))
+        for i, (im, f) in enumerate(zip(ims, shots)):
+            sheet.paste(im, ((i % cols) * 400, (i // cols) * 300))
+            ImageDraw.Draw(sheet).text(((i % cols) * 400 + 4, (i // cols) * 300 + 4), os.path.basename(f), fill=(255, 255, 0))
         sheet.save(os.path.join(a.out, "sheet.png"))
 
 

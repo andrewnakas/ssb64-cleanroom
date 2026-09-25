@@ -155,7 +155,7 @@ def pack_region(table, files_data, blobs_tail, compress):
         e = table[i]
         data = bytes(files_data[i])
         if e["vpk0"]:
-            c = compress(data)
+            c = compress(data, e.get("vpk"))
             c += bytes((-len(c)) % 4)
         else:
             c = data
@@ -168,8 +168,9 @@ def pack_region(table, files_data, blobs_tail, compress):
     for i in range(n):
         e = table[i]
         stored = len(comp[i]) // 4
+        # nothing may follow the extern file-id table: the game reads every u16 up to the next
+        # file's start as an extern id (padding here = bogus loads of file 0)
         blob = comp[i] + blobs_tail[i]
-        blob += bytes((-len(blob)) % 8)
         w = len(body) | (0x80000000 if e["vpk0"] else 0)
         head += struct.pack(">IHHHH", w, e["intern"], stored, e["extern"], e["dec"])
         body += blob
@@ -178,10 +179,33 @@ def pack_region(table, files_data, blobs_tail, compress):
     return bytes(head + body)
 
 
+def compress_cached(cache, data, cfg=None):
+    """vpk0 with an on-disk cache keyed by content hash + tree config."""
+    import hashlib
+    k = hashlib.sha1(data + repr(cfg).encode()).hexdigest()
+    p = os.path.join(cache, k)
+    if os.path.exists(p):
+        return open(p, "rb").read()
+    c = None
+    for tries in ([cfg] if cfg else []) + [[(cfg or [1])[0], "((3, 8), (12, 16))", "(4, (8, 16))"],
+                                           [(cfg or [1])[0], "((4, 10), (14, 20))", "(6, (10, 20))"]]:
+        try:
+            c = reloc.vpk0("c", data, tries)
+            break
+        except Exception:
+            continue
+    if c is None:
+        raise RuntimeError("vpk0: no tree config fits")
+    open(p, "wb").write(c)
+    return c
+
+
 def main():
     ap = argparse.ArgumentParser()
     ap.add_argument("rom")
     ap.add_argument("out")
+    ap.add_argument("--raw", action="store_true", help="dev: store every file uncompressed")
+    ap.add_argument("--keep", default="", help="dev bisect: comma list of fid ranges a-b to leave retail")
     a = ap.parse_args()
     from . import pack
     rom = open(a.rom, "rb").read()
@@ -195,9 +219,24 @@ def main():
         n = len(reloc.chain(bytes(files_data[len(tails)]), e["extern"])) if e["extern"] != 0xFFFF else 0
         tails.append(e["blob"][e["stored"] * 4:e["stored"] * 4 + 2 * n])
     from . import art
-    ranges = generate_bytes(textures, palettes, hook=art.hook)
-    apply(files_data, ranges)
-    region = pack_region(table, files_data, tails, lambda d: reloc.vpk0("c", d))
+    import pickle
+    rp = os.path.join(a.out, "ranges.pkl")
+    if a.keep and os.path.exists(rp):
+        ranges = pickle.load(open(rp, "rb"))
+    else:
+        ranges = generate_bytes(textures, palettes, hook=art.hook)
+        os.makedirs(a.out, exist_ok=True)
+        pickle.dump(ranges, open(rp, "wb"))
+    keep = set()
+    for r in filter(None, a.keep.split(",")):
+        lo, _, hi = r.partition("-")
+        keep.update(range(int(lo), int(hi or lo) + 1))
+    apply(files_data, {k: v for k, v in ranges.items() if k[0] not in keep})
+    cache = os.path.join(a.out, "vpk0_cache")
+    os.makedirs(cache, exist_ok=True)
+    if a.raw:
+        table = [dict(e, vpk0=False) for e in table]
+    region = pack_region(table, files_data, tails, lambda d, cfg: compress_cached(cache, d, cfg))
     newrom = pack.build(rom, region)
     seed = pack.set_crc(newrom, rom)
     os.makedirs(a.out, exist_ok=True)

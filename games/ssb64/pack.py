@@ -66,6 +66,10 @@ def patch_base(rom, new_base, sites):
 def build(code_rom, reloc_region, seed_rom=None):
     """code_rom: 16 MB image whose non-reloc regions are final. Returns the new ROM bytes."""
     rom = bytearray(code_rom[:0x1000000])
+    slot = reloc.RELOC_END - reloc.RELOC_ROM
+    if len(reloc_region) <= slot:   # fits the retail slot: no code patch at all
+        rom[reloc.RELOC_ROM:reloc.RELOC_END] = reloc_region + bytes(slot - len(reloc_region))
+        return rom
     sites = find_base_sites(rom)
     assert len(sites) == 59, len(sites)
     rom[reloc.RELOC_ROM:reloc.RELOC_END] = bytes(reloc.RELOC_END - reloc.RELOC_ROM)
