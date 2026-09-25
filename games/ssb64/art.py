@@ -60,11 +60,80 @@ def icons():
     return _ICONS
 
 
+# lettering painted from its own kept silhouette: layers by distance (px) from the transparent edge
+RIMS = {
+    "167:245c8": {"layers": [[2, [25, 10, 10]]], "fill": [[215, 25, 20], [180, 15, 15]],
+                  "text": "SMASH", "ink": [[255, 240, 70], [245, 140, 20]], "edge": [90, 10, 10]},
+    "167:16728": {"layers": [[2, [15, 15, 15]]], "fill": [[250, 250, 250], [220, 220, 220]],
+                  "text": "SUPER", "ink": [[20, 20, 20], [20, 20, 20]]},
+    "167:25188": {"layers": [[2, [15, 15, 15]]], "fill": [[250, 250, 250], [220, 220, 220]],
+                  "text": "BROS.", "ink": [[20, 20, 20], [20, 20, 20]]},
+}
+
+
+def _edge_distance(alpha):
+    solid = alpha >= 128
+    dist = np.zeros(alpha.shape, np.float32)
+    cur = solid.copy()
+    for d in range(1, 16):
+        dist[cur] = d
+        nxt = cur.copy()
+        for dy, dx in ((1, 0), (-1, 0), (0, 1), (0, -1)):
+            nxt &= np.roll(np.roll(cur, dy, 0), dx, 1)
+        if not nxt.any():
+            break
+        cur = nxt
+    return dist
+
+
+def rim_fill(spec, base):
+    a = base[..., 3]
+    dist = _edge_distance(a)
+    H = a.shape[0]
+    t = (np.arange(H, dtype=np.float32) / max(1, H - 1))[:, None, None]
+    top, bot = (np.asarray(c, np.float32) for c in spec["fill"])
+    img = np.zeros(base.shape, np.float32)
+    img[..., :3] = top * (1 - t) + bot * t
+    lo = 0
+    for upto, c in spec["layers"]:
+        m = (dist > lo) & (dist <= upto)
+        img[m, :3] = c
+        lo = upto
+    if spec.get("text"):
+        from cleanroom.gfx import strokefont
+        ys, xs = np.nonzero(a >= 128)
+        y0, y1, x0, x1 = ys.min(), ys.max(), xs.min(), xs.max()
+        bh, bw = int((y1 - y0) * 0.62), int((x1 - x0) * 0.86)
+        th = max(2, bh // 5)
+        line = strokefont.render_line(spec["text"], bh, thickness=th)
+        xi = np.linspace(0, line.shape[1] - 1, bw)
+        line = np.stack([np.interp(xi, np.arange(line.shape[1]), r) for r in line])
+        m = np.zeros(a.shape, np.float32)
+        oy, ox = y0 + ((y1 - y0) - bh) // 2, x0 + ((x1 - x0) - bw) // 2
+        m[oy:oy + bh, ox:ox + bw] = np.clip(line * 1.5, 0, 1)
+        m *= (dist > 2)
+        tt = (np.arange(a.shape[0], dtype=np.float32) - oy) / max(1, bh)
+        tt = np.clip(tt, 0, 1)[:, None, None]
+        top, bot = (np.asarray(c, np.float32) for c in spec["ink"])
+        ink = top * (1 - tt) + bot * tt
+        if spec.get("edge"):
+            ring = m.copy()
+            for dy in (-1, 0, 1):
+                for dx in (-1, 0, 1):
+                    ring = np.maximum(ring, np.roll(np.roll(m, dy, 0), dx, 1))
+            img[..., :3] = img[..., :3] * (1 - ring[..., None]) + np.asarray(spec["edge"], np.float32) * ring[..., None]
+        img[..., :3] = img[..., :3] * (1 - m[..., None]) + ink * m[..., None]
+    img[..., 3] = a
+    return img
+
+
 def hook(t):
     return None
 
 
-def sprite_hook(key, w, h):
+def sprite_hook(key, w, h, base=None):
+    if key in RIMS and base is not None:
+        return rim_fill(RIMS[key], base)
     ic = icons().get(key)
     if ic is not None:
         img = facepaint.render(ic, w, h)

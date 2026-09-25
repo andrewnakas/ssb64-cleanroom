@@ -126,7 +126,8 @@ def generate_bytes(textures, palettes, hook=None):
     from . import art, sprites
     for (sf, so), parts in sprites.sprite_groups(textures).items():
         ys, W, H = sprites.layout(parts)
-        img = art.sprite_hook(f"{sf}:{so:x}", W, H)
+        base = sprites.compose(parts, [imgs[(t["fid"], t["off"])] for t in parts])
+        img = art.sprite_hook(f"{sf}:{so:x}", W, H, base)
         if img is not None:
             for t, piece in zip(parts, sprites.split(img, parts)):
                 full = np.zeros((t["h"], t["w"], 4), np.float32)
