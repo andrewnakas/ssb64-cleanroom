@@ -36,6 +36,9 @@
 - Character-select portraits: painted from our own briefs (`portrait_briefs.json`, facepaint) with
   re-typeset names; preview in shots/portraits0.png.
 
+- Title logo re-typeset (SMASH / SUPER / BROS. in our stroke font inside the kept silhouettes);
+  mode-select icons drawn from our own line briefs (`icon_briefs.json`).
+
 ## Known issues / next
 - IA icons whose detail is in the intensity (mode-select controller/console icons) are plain discs:
   need briefs.
