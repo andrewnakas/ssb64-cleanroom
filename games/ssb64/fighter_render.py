@@ -170,16 +170,22 @@ def walk_dl(R, dl, W, tris, depth=0):
                 # material DL the engine builds from the joint's MObjSub: texture (+ palette) image
                 mf, mo = st["mobj"]
                 md = R.f(mf).data
+                flags = struct.unpack_from(">H", md, mo + 0x30)[0]
                 tp = R.ptr(mf, mo + 4)
                 frame = R.ptr(tp[0], tp[1]) if tp else None
-                if frame:
-                    st["loaded"] = frame
-                    st["timg"] = frame
                 pp = R.ptr(mf, mo + 0x2C)
                 pal = R.ptr(pp[0], pp[1]) if pp else None
-                if pal:
-                    st["timg"] = pal           # the material DL ends with the palette image (LOADTLUT follows)
-                    st["tlut"] = pal
+                # same order as gcDrawMObjForDObj: palette image (+TLUT), block load, current image last
+                if flags & 0x04 and pal:
+                    st["timg"] = pal
+                    if flags & 0x03:
+                        st["tlut"] = pal
+                if flags & 0x12 and frame:
+                    st["timg"] = frame
+                    if flags & 0x11:
+                        st["loaded"] = frame
+                if flags & 0x11 and frame:
+                    st["timg"] = frame
             walk_dl(R, p, W, tris, depth + 1)
             if (w0 >> 16) & 0xFF == 1:
                 return

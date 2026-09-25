@@ -122,6 +122,16 @@ def generate_bytes(textures, palettes, hook=None):
     imgs = {}
     for t in textures:
         imgs[(t["fid"], t["off"])] = base_image(t, hook)
+    # whole-sprite art (portraits...): paint once, split into the stored strips
+    from . import art, sprites
+    for (sf, so), parts in sprites.sprite_groups(textures).items():
+        ys, W, H = sprites.layout(parts)
+        img = art.sprite_hook(f"{sf}:{so:x}", W, H)
+        if img is not None:
+            for t, piece in zip(parts, sprites.split(img, parts)):
+                full = np.zeros((t["h"], t["w"], 4), np.float32)
+                full[:piece.shape[0], :piece.shape[1]] = piece
+                imgs[(t["fid"], t["off"])] = full
     # Palette groups. Which TLUT a model texture uses at runtime is often set elsewhere (material
     # palettes, costume swaps), so model/material CI textures and every palette of their file that no
     # sprite claims share ONE palette per (file, CI4|CI8) group: whichever TLUT the game loads, the

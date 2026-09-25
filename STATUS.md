@@ -33,7 +33,12 @@
   Taint: 0 failing (6,007 ranges). Publishing is gated on taint (`ssb64/publish.sh`).
 - Readable: menu labels (I/IA sprites rebuilt from the kept outline), CSS labels, HUD digits.
 
+- Character-select portraits: painted from our own briefs (`portrait_briefs.json`, facepaint) with
+  re-typeset names; preview in shots/portraits0.png.
+
 ## Known issues / next
+- IA icons whose detail is in the intensity (mode-select controller/console icons) are plain discs:
+  need briefs.
 - Portraits, stage art, big RGBA pictures are colour grids (blurry). Plan: render fighters from their
   own models (`games/ssb64/fighter_render.py`, skeleton + DL walk working; texture/palette binding
   still wrong for some fighters) for CSS portraits / results / stock icons.
