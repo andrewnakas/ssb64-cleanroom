@@ -51,6 +51,20 @@ def base_image(t, hook=None):
     if t.get("alpha2"):
         a = unpack_alpha2(t["alpha2"], w, h)
         img[..., 3] = np.where(a >= 128, 255, np.where(a > 0, a, 0))
+        if t.get("fmt") == "I":
+            # I textures: alpha == intensity on the RDP, so the kept outline is the image itself
+            img[..., :3] = img[..., 3:4]
+        elif t.get("fmt") == "IA" and g is not None:
+            # IA lettering/icons: light interior, darker rim (edge distance from the outline), in the
+            # grid's own light..dark range
+            solid = a >= 128
+            inner = solid.copy()
+            for dy, dx in ((1, 0), (-1, 0), (0, 1), (0, -1)):
+                inner &= np.roll(np.roll(solid, dy, 0), dx, 1)
+            lum = np.asarray(g, np.float32)[:, :3].mean(1)
+            hi_, lo_ = max(lum.max(), 160.0), min(lum.min(), 60.0)
+            v = np.where(inner, hi_, lo_).astype(np.float32)
+            img[..., :3] = v[..., None]
     elif g is not None:
         img[..., 3] = 255
     return np.clip(img, 0, 255)
