@@ -42,6 +42,8 @@
 - Big multi-strip sprites (stage wallpapers, backgrounds, pictures >= 128 px) use one 16x16 grid for
   the whole picture (spec/sprites.json) instead of a grid per 6-row strip: no more banding/stripes.
 
+- Announcer letters (GO!, GAME SET, ...) painted chrome from their own silhouettes; fighter names crisp.
+
 ## Known issues / next
 - IA icons whose detail is in the intensity (mode-select controller/console icons) are plain discs:
   need briefs.

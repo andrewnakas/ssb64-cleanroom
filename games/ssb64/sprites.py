@@ -54,11 +54,24 @@ def _ids(spec):
     return out
 
 
-def sheet(work, fids, path, maxw=256):
+def sheet(work, fids, path, maxw=256, rom_path=None):
     from PIL import Image, ImageDraw
     from .extract_spec import image_of, load_files
-    rom = open("C:/Users/andre/n64work/ssb64/rom/baserom.us.z64", "rb").read()
-    ents, files = load_files(rom, work)
+    if rom_path:        # decode from another ROM (e.g. the clean build) instead of the dirty extraction
+        from . import reloc
+
+        class _F:
+            pass
+        rom = open(rom_path, "rb").read()
+        ents = reloc.parse(rom[reloc.RELOC_ROM:reloc.RELOC_END])
+        files = {}
+        for i in range(reloc.FILE_COUNT):
+            f = _F()
+            f.data = reloc.file_data(ents[i]) if i in fids or True else b""
+            files[i] = f
+    else:
+        rom = open("C:/Users/andre/n64work/ssb64/rom/baserom.us.z64", "rb").read()
+        ents, files = load_files(rom, work)
     tex = json.load(open(os.path.join(SPEC, "textures.json")))
     groups = sprite_groups([t for t in tex if t["sprite"] and t["sprite"][0] in fids])
     tiles = []
@@ -93,4 +106,4 @@ def sheet(work, fids, path, maxw=256):
 
 if __name__ == "__main__":
     if sys.argv[1] == "sheet":
-        sheet(sys.argv[2], _ids(sys.argv[3]), sys.argv[4])
+        sheet(sys.argv[2], _ids(sys.argv[3]), sys.argv[4], rom_path=sys.argv[5] if len(sys.argv) > 5 else None)

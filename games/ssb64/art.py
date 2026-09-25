@@ -131,9 +131,18 @@ def hook(t):
     return None
 
 
+CHROME = {"layers": [[1, [20, 20, 30]]], "fill": [[250, 250, 255], [120, 125, 140]]}
+
+
 def sprite_hook(key, w, h, base=None):
     if key in RIMS and base is not None:
         return rim_fill(RIMS[key], base)
+    if key.startswith("37:") and base is not None:      # announcer letters (GO!, GAME SET...)
+        img = rim_fill(CHROME, base)
+        H = img.shape[0]
+        band = (np.abs(np.arange(H) - H * 0.55) < max(1, H * 0.06))[:, None]
+        img[..., :3] = np.where(band[..., None] & (img[..., 3:4] > 0), img[..., :3] * 0.55, img[..., :3])
+        return img
     ic = icons().get(key)
     if ic is not None:
         img = facepaint.render(ic, w, h)
